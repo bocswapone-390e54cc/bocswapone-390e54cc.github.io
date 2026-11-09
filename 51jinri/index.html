@@ -1,0 +1,1825 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>51今日爆料每日大赛 - 赛事爆料聚合</title>
+  <meta name="description" content="51今日爆料每日大赛聚合每日赛事速递、爆料档案与深度解析，涵盖热门赛道、选手动态和规则解读，适合关注网络热点与大赛进程的浏览者。">
+  <meta name="keywords" content="每日大赛速递,爆料档案,赛事解析,选手动态">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23b83b2e'/%3E%3Ctext x='16' y='23' font-size='18' font-family='sans-serif' font-weight='bold' fill='%23fff' text-anchor='middle'%3E51%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --ink: #1d1d1f;
+      --ink-soft: #4a4a4f;
+      --muted: #76767e;
+      --line: #e5e0d8;
+      --paper: #faf7f2;
+      --paper-2: #ffffff;
+      --brand: #b83b2e;
+      --brand-deep: #8c2a20;
+      --brand-soft: #fbeee9;
+      --gold: #c28a2c;
+      --gold-soft: #fbf3e2;
+      --teal: #1f6f6b;
+      --teal-soft: #e6f2f0;
+      --radius-s: 6px;
+      --radius-m: 10px;
+      --radius-l: 16px;
+      --shadow-s: 0 1px 2px rgba(29,29,31,.05);
+      --shadow-m: 0 4px 14px rgba(29,29,31,.07);
+      --font: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+      --anchor-offset: 118px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--anchor-offset); }
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.7;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 3px; }
+
+    /* ===== 公告条 + 页头（一体吸顶） ===== */
+    .sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--paper-2);
+      box-shadow: 0 1px 0 var(--line), var(--shadow-s);
+    }
+    .notice-bar {
+      background: var(--ink);
+      color: #f4efe6;
+      font-size: 13px;
+      padding: 7px 0;
+    }
+    .notice-bar .wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .notice-bar .tag {
+      background: var(--brand);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 1px 8px;
+      border-radius: 20px;
+      letter-spacing: .04em;
+      flex-shrink: 0;
+    }
+    .notice-bar .item {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .notice-bar .dot { color: var(--gold); margin: 0 2px; }
+
+    header.site-head { background: var(--paper-2); }
+    .head-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 12px 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .brand-mark {
+      width: 42px; height: 42px;
+      border-radius: 11px;
+      background: linear-gradient(145deg, var(--brand) 0%, var(--brand-deep) 100%);
+      display: grid; place-items: center;
+      color: #fff; font-weight: 800; font-size: 19px;
+      letter-spacing: -0.5px;
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,.18);
+    }
+    .brand-name {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      white-space: nowrap;
+    }
+    .brand-name small {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .14em;
+      margin-top: -2px;
+    }
+    .head-nav {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      align-items: center;
+      flex: 1;
+    }
+    .head-nav a {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      padding: 6px 11px;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+    .head-nav a:hover { background: var(--brand-soft); color: var(--brand-deep); }
+    .head-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 3px 4px 3px 12px;
+      gap: 6px;
+    }
+    .search-box input {
+      border: 0; background: transparent; outline: none;
+      width: 148px; font-size: 13px; color: var(--ink);
+      padding: 4px 0;
+    }
+    .search-box input::placeholder { color: var(--muted); }
+    .search-box button {
+      border: 0; background: var(--brand); color: #fff;
+      width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 14px;
+    }
+    .search-status {
+      font-size: 12px;
+      color: var(--brand-deep);
+      background: var(--brand-soft);
+      padding: 5px 12px;
+      border-radius: 6px;
+      display: none;
+      margin-top: 8px;
+    }
+    .search-status.on { display: block; }
+
+    /* ===== 通用容器 ===== */
+    .wrap { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 20px; }
+
+    /* ===== 首屏 ===== */
+    .hero {
+      background:
+        radial-gradient(1100px 400px at 85% -10%, rgba(184,59,46,.10), transparent 60%),
+        radial-gradient(700px 300px at 5% 110%, rgba(31,111,107,.09), transparent 60%),
+        var(--paper-2);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: center;
+      padding: 44px 0 48px;
+    }
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; letter-spacing: .12em;
+      color: var(--brand-deep);
+      background: var(--brand-soft);
+      border: 1px solid rgba(184,59,46,.18);
+      padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .hero-kicker .pulse {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--brand);
+      box-shadow: 0 0 0 3px rgba(184,59,46,.18);
+    }
+    h1 {
+      font-size: clamp(30px, 4.4vw, 46px);
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--brand);
+      position: relative;
+    }
+    .hero-desc {
+      font-size: 15.5px;
+      color: var(--ink-soft);
+      max-width: 540px;
+      margin-bottom: 24px;
+    }
+    .hero-entries { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700;
+      padding: 11px 22px; border-radius: 26px;
+      border: 1px solid transparent;
+      transition: transform .12s, box-shadow .15s, background .15s;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: var(--brand); color: #fff;
+      box-shadow: 0 6px 16px rgba(184,59,46,.24);
+    }
+    .btn-primary:hover { background: var(--brand-deep); }
+    .btn-ghost {
+      background: var(--paper-2);
+      border-color: var(--line);
+      color: var(--ink);
+    }
+    .btn-ghost:hover { border-color: var(--brand); color: var(--brand-deep); }
+
+    /* 首屏视觉：原创 SVG 面板 */
+    .hero-visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+    .visual-board {
+      width: 100%;
+      max-width: 420px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-l);
+      box-shadow: var(--shadow-m);
+      overflow: hidden;
+    }
+    .visual-board .vb-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 16px;
+      background: var(--ink);
+      color: #f4efe6;
+      font-size: 12px;
+      letter-spacing: .06em;
+    }
+    .vb-live {
+      display: flex; align-items: center; gap: 6px;
+      font-weight: 700; color: #ffd9a8;
+    }
+    .vb-live i {
+      width: 7px; height: 7px; border-radius: 50%; background: #ff5c4d;
+      animation: blink 1.6s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .visual-board svg { display: block; width: 100%; height: auto; }
+
+    /* ===== 三栏主布局 ===== */
+    .layout {
+      display: grid;
+      grid-template-columns: 176px minmax(0, 1fr) 248px;
+      gap: 28px;
+      align-items: start;
+      padding: 34px 0 20px;
+    }
+
+    /* 左频道索引 */
+    .channel-col {
+      position: sticky;
+      top: calc(var(--anchor-offset) + 8px);
+    }
+    .panel {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      box-shadow: var(--shadow-s);
+    }
+    .panel-head {
+      padding: 13px 16px 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 12.5px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
+    .channel-list { padding: 8px; }
+    .channel-list a {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      border-radius: 7px;
+      transition: background .14s, color .14s;
+    }
+    .channel-list a:hover { background: var(--brand-soft); color: var(--brand-deep); }
+    .channel-list a .ic {
+      width: 6px; height: 6px; border-radius: 2px;
+      background: var(--brand); opacity: .55; flex-shrink: 0;
+    }
+    .channel-list a:nth-child(3n+2) .ic { background: var(--gold); }
+    .channel-list a:nth-child(3n) .ic { background: var(--teal); }
+    .channel-side-note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      background: var(--gold-soft);
+      border: 1px solid #efe2c4;
+      border-radius: var(--radius-m);
+    }
+    .channel-side-note strong { color: var(--ink); }
+
+    /* 中间主内容 */
+    .main-col { min-width: 0; display: flex; flex-direction: column; gap: 30px; }
+
+    .sec-head {
+      display: flex; align-items: baseline; gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .sec-head h2 {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      display: flex; align-items: center; gap: 9px;
+    }
+    .sec-head h2::before {
+      content: "";
+      width: 4px; height: 18px;
+      border-radius: 3px;
+      background: linear-gradient(var(--brand), var(--gold));
+    }
+    .sec-head .sub {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .sec-head .more {
+      margin-left: auto;
+      font-size: 12.5px;
+      color: var(--brand-deep);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-s);
+      transition: box-shadow .18s, transform .18s;
+    }
+    .card:hover { box-shadow: var(--shadow-m); transform: translateY(-2px); }
+    .card-thumb {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .card-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .35s;
+    }
+    .card:hover .card-thumb img { transform: scale(1.04); }
+    .card-thumb .badge {
+      position: absolute;
+      top: 9px; left: 9px;
+      background: rgba(29,29,31,.82);
+      backdrop-filter: blur(3px);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      letter-spacing: .03em;
+    }
+    .card-body {
+      padding: 13px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      flex: 1;
+    }
+    .card-title {
+      font-size: 15.5px;
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: -.01em;
+    }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 14px;
+      background: var(--brand-soft);
+      color: var(--brand-deep);
+      white-space: nowrap;
+    }
+    .tag.gold { background: var(--gold-soft); color: #8a5d12; }
+    .tag.teal { background: var(--teal-soft); color: var(--teal); }
+    .card-desc {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.62;
+    }
+    .card-meta {
+      margin-top: auto;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11.5px;
+      color: var(--muted);
+      padding-top: 8px;
+      border-top: 1px dashed var(--line);
+    }
+    .card-meta .hot { color: var(--brand); font-weight: 700; }
+
+    /* 动态紧凑列表 */
+    .feed-list {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      overflow: hidden;
+    }
+    .feed-item {
+      display: flex; gap: 14px;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .feed-item:last-child { border-bottom: 0; }
+    .feed-item:hover { background: #fdfbf8; }
+    .feed-time {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+      width: 66px;
+      font-variant-numeric: tabular-nums;
+    }
+    .feed-body { min-width: 0; }
+    .feed-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .feed-title .new {
+      font-size: 10px; font-weight: 700;
+      color: #fff; background: var(--brand);
+      padding: 0 5px; border-radius: 3px;
+      margin-left: 6px; vertical-align: 1px;
+    }
+    .feed-summary { font-size: 12.5px; color: var(--ink-soft); }
+
+    /* 分类入口 */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .cat-tile {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      padding: 13px 12px;
+      display: flex; flex-direction: column; gap: 3px;
+      transition: border-color .15s, background .15s;
+    }
+    .cat-tile:hover { border-color: var(--brand); background: var(--brand-soft); }
+    .cat-tile .cn {
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .cat-tile .cs { font-size: 11.5px; color: var(--muted); }
+
+    /* 深度解析 */
+    .article {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      padding: 26px 28px;
+      box-shadow: var(--shadow-s);
+    }
+    .article h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin: 22px 0 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .article h3:first-child { margin-top: 0; }
+    .article h3::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 2px;
+      background: var(--brand);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .article p {
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      margin-bottom: 11px;
+      line-height: 1.82;
+    }
+    .article ul {
+      margin: 4px 0 14px;
+      padding-left: 4px;
+    }
+    .article ul li {
+      font-size: 14px;
+      color: var(--ink-soft);
+      padding: 5px 0 5px 18px;
+      position: relative;
+      line-height: 1.7;
+    }
+    .article ul li::before {
+      content: "";
+      position: absolute;
+      left: 2px; top: 14px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .article strong { color: var(--ink); font-weight: 700; }
+
+    /* 对照面板 */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0 6px;
+    }
+    .compare-col {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      padding: 14px 16px;
+      background: var(--paper);
+    }
+    .compare-col.warm { background: var(--brand-soft); border-color: rgba(184,59,46,.22); }
+    .compare-col h4 {
+      font-size: 13.5px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--brand-deep);
+    }
+    .compare-col ul li {
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      padding-left: 16px;
+      position: relative;
+      padding-top: 3px; padding-bottom: 3px;
+      line-height: 1.65;
+    }
+    .compare-col ul li::before {
+      content: "›";
+      position: absolute; left: 2px;
+      color: var(--brand);
+      font-weight: 700;
+    }
+
+    /* 体验指南步骤 */
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 10px;
+      margin: 14px 0 6px;
+    }
+    .step {
+      display: flex; gap: 14px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      padding: 14px 16px;
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step, decimal-leading-zero);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--brand);
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+      line-height: 1.3;
+    }
+    .step .st-title { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
+    .step .st-desc { font-size: 12.8px; color: var(--ink-soft); }
+
+    /* FAQ */
+    .faq-list { display: grid; gap: 8px; }
+    details.faq-item {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      overflow: hidden;
+    }
+    details.faq-item[open] { border-color: rgba(184,59,46,.35); box-shadow: var(--shadow-s); }
+    details.faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 18px 14px 44px;
+      font-size: 14px;
+      font-weight: 700;
+      position: relative;
+      line-height: 1.5;
+    }
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary::before {
+      content: "?";
+      position: absolute;
+      left: 15px; top: 50%;
+      transform: translateY(-50%);
+      width: 19px; height: 19px;
+      border-radius: 50%;
+      background: var(--brand-soft);
+      color: var(--brand-deep);
+      font-size: 12px; font-weight: 800;
+      display: grid; place-items: center;
+    }
+    details.faq-item summary::after {
+      content: "＋";
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 15px;
+      color: var(--muted);
+      transition: transform .2s;
+    }
+    details.faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+    .faq-answer {
+      padding: 0 18px 15px 44px;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      line-height: 1.75;
+    }
+
+    /* 用户评论 */
+    .comment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .comment-card {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      padding: 12px 14px;
+    }
+    .comment-head {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 7px;
+    }
+    .avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 12px; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+    }
+    .comment-name { font-size: 12.5px; font-weight: 700; }
+    .comment-date { font-size: 11px; color: var(--muted); margin-left: auto; }
+    .comment-text { font-size: 12.8px; color: var(--ink-soft); line-height: 1.65; }
+    .comment-text .ref { color: var(--brand-deep); font-weight: 600; }
+
+    /* 相关资讯 */
+    .news-list { display: grid; gap: 10px; }
+    .news-item {
+      display: grid;
+      grid-template-columns: 104px minmax(0, 1fr);
+      gap: 14px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      overflow: hidden;
+      padding: 10px;
+      align-items: center;
+    }
+    .news-thumb {
+      width: 104px; height: 74px;
+      border-radius: var(--radius-s);
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .news-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .news-body h3 { font-size: 14px; font-weight: 800; margin-bottom: 3px; line-height: 1.4; }
+    .news-body p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.6; }
+    .news-date { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    /* 相关推荐标签索引 */
+    .tag-index {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag-index a {
+      font-size: 12.8px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 20px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      color: var(--ink-soft);
+      transition: all .15s;
+    }
+    .tag-index a:hover { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+    /* 榜单 */
+    .rank-list { display: grid; gap: 8px; }
+    .rank-item {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      padding: 10px 14px;
+    }
+    .rank-no {
+      font-size: 17px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      width: 28px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .rank-item:nth-child(1) .rank-no { color: var(--brand); }
+    .rank-item:nth-child(2) .rank-no { color: var(--gold); }
+    .rank-item:nth-child(3) .rank-no { color: var(--teal); }
+    .rank-body { min-width: 0; flex: 1; }
+    .rank-name { font-size: 13.5px; font-weight: 700; }
+    .rank-sub { font-size: 11.5px; color: var(--muted); }
+    .rank-score {
+      font-size: 12px; font-weight: 800; color: var(--brand);
+      background: var(--brand-soft);
+      padding: 2px 9px; border-radius: 14px;
+      white-space: nowrap;
+    }
+
+    /* 右辅助栏 */
+    .side-col { display: flex; flex-direction: column; gap: 18px; }
+    .side-panel { background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius-m); overflow: hidden; }
+    .side-head {
+      padding: 12px 15px;
+      font-size: 13px; font-weight: 800;
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      letter-spacing: .02em;
+    }
+    .side-head .hint { font-size: 11px; font-weight: 500; color: var(--muted); }
+    .hot-list { padding: 7px 10px; }
+    .hot-item {
+      display: flex; gap: 10px;
+      padding: 8px 5px;
+      border-bottom: 1px dashed var(--line);
+      align-items: flex-start;
+    }
+    .hot-item:last-child { border-bottom: 0; }
+    .hot-no {
+      font-size: 13px; font-weight: 800;
+      color: var(--muted);
+      width: 16px; flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.5;
+    }
+    .hot-item:nth-child(1) .hot-no { color: var(--brand); }
+    .hot-item:nth-child(2) .hot-no { color: var(--gold); }
+    .hot-item:nth-child(3) .hot-no { color: var(--teal); }
+    .hot-name { font-size: 12.8px; font-weight: 600; line-height: 1.45; }
+    .hot-meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+    .timeline { padding: 14px 15px; position: relative; }
+    .timeline::before {
+      content: ""; position: absolute;
+      left: 24px; top: 20px; bottom: 20px;
+      width: 1px; background: var(--line);
+    }
+    .tl-item { position: relative; padding: 0 0 14px 22px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item::before {
+      content: ""; position: absolute;
+      left: 2px; top: 6px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--paper-2);
+      border: 2px solid var(--brand);
+    }
+    .tl-time { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .tl-text { font-size: 12.8px; font-weight: 600; line-height: 1.5; }
+
+    .side-quote {
+      padding: 16px;
+      background: linear-gradient(145deg, var(--ink), #33333a);
+      color: #ece5da;
+      border-radius: var(--radius-m);
+      font-size: 12.8px;
+      line-height: 1.7;
+    }
+    .side-quote .qm { font-size: 26px; color: var(--gold); line-height: .6; display: block; margin-bottom: 8px; }
+    .side-quote .qby { margin-top: 10px; font-size: 11.5px; color: #b9b2a6; text-align: right; }
+
+    /* 页尾 */
+    footer.site-foot {
+      margin-top: 36px;
+      background: var(--ink);
+      color: #cfc9be;
+      padding: 36px 0 20px;
+      font-size: 13px;
+    }
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 28px;
+      padding-bottom: 26px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .foot-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .foot-brand .brand-mark { width: 36px; height: 36px; font-size: 16px; border-radius: 9px; }
+    .foot-brand .brand-name { color: #fff; font-size: 16px; }
+    .foot-brand .brand-name small { color: #8e887d; }
+    .foot-desc { font-size: 12.5px; line-height: 1.7; color: #a49e93; max-width: 300px; }
+    .foot-col h4 { color: #fff; font-size: 13px; margin-bottom: 12px; font-weight: 700; letter-spacing: .04em; }
+    .foot-col ul li { margin-bottom: 8px; }
+    .foot-col ul a { font-size: 12.5px; color: #a49e93; transition: color .14s; }
+    .foot-col ul a:hover { color: #fff; }
+    .foot-bottom {
+      display: flex; justify-content: space-between; gap: 14px;
+      flex-wrap: wrap;
+      padding-top: 16px;
+      font-size: 11.5px;
+      color: #8e887d;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 1120px) {
+      .layout { grid-template-columns: 160px minmax(0, 1fr); }
+      .side-col { display: none; }
+    }
+    @media (max-width: 1024px) {
+      .layout { grid-template-columns: 1fr; gap: 22px; }
+      .channel-col { position: static; }
+      .channel-list, .channel-side-note { display: none; }
+      .panel-head { display: none; }
+      .channel-col .panel { background: transparent; border: 0; box-shadow: none; }
+      .channel-nav-horizontal {
+        display: flex; flex-wrap: wrap; gap: 6px;
+        padding: 0;
+      }
+      .channel-nav-horizontal a {
+        font-size: 12.5px;
+        padding: 6px 13px;
+        border-radius: 20px;
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+        color: var(--ink-soft);
+      }
+      .channel-nav-horizontal a:hover { background: var(--brand-soft); color: var(--brand-deep); border-color: rgba(184,59,46,.3); }
+      .hero-inner { grid-template-columns: 1fr; gap: 26px; padding: 34px 0 38px; }
+      .hero-visual { order: -1; }
+      .visual-board { max-width: 360px; margin: 0 auto; }
+      .foot-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 740px) {
+      body { font-size: 14px; }
+      .head-inner { flex-wrap: wrap; gap: 10px; padding: 10px 0; }
+      .head-nav { order: 3; width: 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+      .head-nav::-webkit-scrollbar { height: 0; }
+      .head-actions { margin-left: auto; }
+      .search-box input { width: 104px; }
+      .hero-desc { font-size: 14.5px; }
+      .hero-entries .btn { flex: 1; justify-content: center; }
+      .card-grid { grid-template-columns: 1fr; }
+      .cat-grid { grid-template-columns: 1fr 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .comment-grid { grid-template-columns: 1fr; }
+      .article { padding: 20px 18px; }
+      .news-item { grid-template-columns: 84px minmax(0, 1fr); }
+      .news-thumb { width: 84px; height: 62px; }
+      .foot-grid { grid-template-columns: 1fr; gap: 20px; }
+      .feed-time { width: 54px; font-size: 11px; }
+      .notice-bar .item { white-space: normal; }
+      :root { --anchor-offset: 150px; }
+    }
+    @media (min-width: 1025px) {
+      .channel-nav-horizontal { display: none; }
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<!-- ===== 吸顶：公告条 + 页头 ===== -->
+<div class="sticky-top">
+  <div class="notice-bar">
+    <div class="wrap">
+      <span class="tag">今日爆料</span>
+      <span class="item">
+        11 月 8 日速递：<strong>「星轨突围赛」第 9 期战报</strong>已上线
+        <span class="dot">·</span> 本周新增 14 条爆料档案
+        <span class="dot">·</span> 「逆风翻盘局」冠军解析 21:00 更新
+      </span>
+    </div>
+  </div>
+
+  <header class="site-head">
+    <div class="wrap head-inner">
+      <a href="/#top" class="brand" aria-label="51今日爆料每日大赛 首页">
+        <span class="brand-mark" aria-hidden="true">51</span>
+        <span class="brand-name">51今日爆料每日大赛<small>DAILY LEAK ARENA</small></span>
+      </a>
+      <nav class="head-nav" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#picks">精选速递</a>
+        <a href="/#feed">最新动态</a>
+        <a href="/#categories">分类入口</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">观赛路径</a>
+        <a href="/#faq">常见问答</a>
+        <a href="/#comments">用户评论</a>
+      </nav>
+      <div class="head-actions">
+        <form class="search-box" id="searchForm" role="search" aria-label="站内内容查找">
+          <input type="search" id="searchInput" placeholder="查找爆料 / 赛事 / 选手" aria-label="输入关键词查找本页内容">
+          <button type="submit" aria-label="查找">⌕</button>
+        </form>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="search-status" id="searchStatus" role="status" aria-live="polite"></div>
+    </div>
+  </header>
+</div>
+
+<!-- ===== 首屏 ===== -->
+<section class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="hero-kicker"><i class="pulse"></i>11 月 8 日 · 每日大赛进行中</span>
+      <h1><em>51今日爆料每日大赛</em></h1>
+      <p class="hero-desc">
+        每天汇总热门赛事与爆料档案：星轨突围赛、逆风翻盘局、深夜排位赛等赛道的即时战报、选手动态、规则变更与社区热议话题，按日期与赛道整理成可追溯的条目流，方便追赛和复盘。
+      </p>
+      <div class="hero-entries">
+        <a href="/#picks" class="btn btn-primary">看今日精选条目 →</a>
+        <a href="/#feed" class="btn btn-ghost">今日动态速览</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="visual-board">
+        <div class="vb-head">
+          <span>11 月 8 日 · 赛事实时板</span>
+          <span class="vb-live"><i></i>LIVE</span>
+        </div>
+        <svg viewBox="0 0 420 300" role="img" aria-label="每日大赛数据面板示意图">
+          <defs>
+            <linearGradient id="gBar" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#b83b2e"/>
+              <stop offset="1" stop-color="#e0a04a"/>
+            </linearGradient>
+          </defs>
+          <rect width="420" height="300" fill="#faf7f2"/>
+          <g font-family="monospace" font-size="11" fill="#76767e">
+            <text x="24" y="36">赛道热度指数</text>
+            <text x="356" y="36" text-anchor="end">11/08</text>
+          </g>
+          <g>
+            <rect x="24" y="52" width="270" height="14" rx="7" fill="#eee7dd"/>
+            <rect x="24" y="52" width="232" height="14" rx="7" fill="url(#gBar)"/>
+            <text x="308" y="64" font-size="11" fill="#8c2a20" font-family="monospace">星轨突围赛 232</text>
+
+            <rect x="24" y="82" width="270" height="14" rx="7" fill="#eee7dd"/>
+            <rect x="24" y="82" width="196" height="14" rx="7" fill="#d89a4a"/>
+            <text x="308" y="94" font-size="11" fill="#8a5d12" font-family="monospace">逆风翻盘局 196</text>
+
+            <rect x="24" y="112" width="270" height="14" rx="7" fill="#eee7dd"/>
+            <rect x="24" y="112" width="158" height="14" rx="7" fill="#4f9a94"/>
+            <text x="308" y="124" font-size="11" fill="#1f6f6b" font-family="monospace">深夜排位赛 158</text>
+
+            <rect x="24" y="142" width="270" height="14" rx="7" fill="#eee7dd"/>
+            <rect x="24" y="142" width="120" height="14" rx="7" fill="#c9b18a"/>
+            <text x="308" y="154" font-size="11" fill="#8a7a5c" font-family="monospace">新人挑战赛 120</text>
+          </g>
+          <g transform="translate(24,190)">
+            <line x1="0" y1="66" x2="372" y2="66" stroke="#e5e0d8"/>
+            <polyline points="0,44 46,38 92,50 138,24 184,32 230,14 276,28 322,10 372,18"
+              fill="none" stroke="#b83b2e" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <g fill="#b83b2e">
+              <circle cx="0" cy="44" r="3"/><circle cx="92" cy="50" r="3"/>
+              <circle cx="184" cy="32" r="3"/><circle cx="276" cy="28" r="3"/>
+              <circle cx="372" cy="18" r="3"/>
+            </g>
+            <text x="0" y="84" font-size="10" fill="#76767e" font-family="monospace">10/30</text>
+            <text x="372" y="84" font-size="10" fill="#76767e" font-family="monospace" text-anchor="end">11/08</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 主布局：三栏门户 ===== -->
+<div class="wrap layout">
+
+  <!-- 左频道索引 -->
+  <aside class="channel-col" aria-label="频道索引">
+    <div class="panel">
+      <div class="panel-head">频道索引</div>
+      <nav class="channel-list" aria-label="左侧频道导航">
+        <a href="/#overview"><span class="ic"></span>领域概览</a>
+        <a href="/#picks"><span class="ic"></span>精选速递</a>
+        <a href="/#feed"><span class="ic"></span>最新动态</a>
+        <a href="/#categories"><span class="ic"></span>分类入口</a>
+        <a href="/#deep"><span class="ic"></span>深度解析</a>
+        <a href="/#guide"><span class="ic"></span>观赛路径</a>
+        <a href="/#faq"><span class="ic"></span>常见问答</a>
+        <a href="/#comments"><span class="ic"></span>用户评论</a>
+        <a href="/#news"><span class="ic"></span>相关资讯</a>
+        <a href="/#related"><span class="ic"></span>延伸方向</a>
+        <a href="/#rank"><span class="ic"></span>热度榜单</a>
+        <a href="/#timeline"><span class="ic"></span>赛事时间线</a>
+      </nav>
+    </div>
+    <div class="channel-side-note">
+      <strong>今日焦点</strong><br>
+      「星轨突围赛」第 9 期战报已更新，冠军操作复盘与三段关键节点拆解同步上线。
+    </div>
+    <!-- 移动端横向频道导航 -->
+    <nav class="channel-nav-horizontal" aria-label="移动端频道导航">
+      <a href="/#overview">领域概览</a>
+      <a href="/#picks">精选速递</a>
+      <a href="/#feed">最新动态</a>
+      <a href="/#categories">分类入口</a>
+      <a href="/#deep">深度解析</a>
+      <a href="/#guide">观赛路径</a>
+      <a href="/#faq">常见问答</a>
+      <a href="/#comments">用户评论</a>
+      <a href="/#news">相关资讯</a>
+      <a href="/#related">延伸方向</a>
+      <a href="/#rank">热度榜单</a>
+      <a href="/#timeline">赛事时间线</a>
+    </nav>
+  </aside>
+
+  <!-- 中间主内容 -->
+  <main class="main-col" id="mainContent">
+
+    <!-- 1. 领域概览 -->
+    <section id="overview" aria-labelledby="h-overview">
+      <div class="sec-head">
+        <h2 id="h-overview">每日大赛与爆料领域概览</h2>
+        <span class="sub">4 大赛道 · 每日 10+ 条更新</span>
+      </div>
+      <div class="article">
+        <p>
+          <strong>51今日爆料每日大赛</strong>围绕网络竞技与社区爆料两类内容展开。每日大赛通常指固定周期开赛的线上竞技活动，赛制多为积分循环或淘汰晋级，赛道按玩法难度、参与门槛和观赏性区分；爆料则指围绕赛事进程产生的选手操作、阵容选择、规则调整、场外花絮等一手信息。两者交织，形成每天持续更新的条目流。
+        </p>
+        <p>
+          目前活跃的赛道大致分为四类：<strong>星轨突围赛</strong>偏重策略博弈与资源调度，对局时长较长，适合复盘；<strong>逆风翻盘局</strong>强调落后局的逆转操作，节奏快、看点密集；<strong>深夜排位赛</strong>以高分段路人局为主，选手个人风格突出；<strong>新人挑战赛</strong>面向首次参赛者，规则更宽松，适合观察新人崛起。每个赛道每天产生 2—4 条值得记录的爆料。
+        </p>
+        <p>
+          值得关注的具体内容方向包括：冠军选手的临场决策链、赛制调整对战术的影响、同一地图在不同赛道的打法差异，以及爆料档案中反复出现的争议判罚案例。这些条目既能满足追赛需求，也适合作为理解竞技逻辑的样本。
+        </p>
+      </div>
+    </section>
+
+    <!-- 2. 精选速递 -->
+    <section id="picks" aria-labelledby="h-picks">
+      <div class="sec-head">
+        <h2 id="h-picks">今日精选爆料条目</h2>
+        <span class="sub">11 月 8 日 · 6 条值得展开看</span>
+        <a href="/#feed" class="more">全部动态 →</a>
+      </div>
+      <div class="card-grid">
+
+        <article class="card">
+          <div class="card-thumb">
+            <img src="https://picsum.photos/seed/51baoliao-xinggui09/400/300" alt="星轨突围赛第 9 期战报封面" width="400" height="300" loading="lazy">
+            <span class="badge">战报</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">星轨突围赛第 9 期：双资源位换家翻盘</h3>
+            <div class="card-tags">
+              <span class="tag">策略竞技</span>
+              <span class="tag gold">复盘</span>
+              <span class="tag teal">资源调度</span>
+            </div>
+            <p class="card-desc">第 9 期决赛出现罕见的双资源位交换，冠军在最后 4 分钟用两次换家把经济差从 -18% 拉回正数。全文拆解三次关键决策的时间点与代价。</p>
+            <div class="card-meta"><span class="hot">热度 9.6</span><span>更新 11-08 09:20</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-thumb">
+            <img src="https://picsum.photos/seed/51baoliao-nifeng07/400/300" alt="逆风翻盘局第七期逆转镜头" width="400" height="300" loading="lazy">
+            <span class="badge">高光</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">逆风翻盘局第 7 期：落后 32% 经济差的三段反打</h3>
+            <div class="card-tags">
+              <span class="tag">逆转操作</span>
+              <span class="tag gold">名场面</span>
+              <span class="tag">节奏控制</span>
+            </div>
+            <p class="card-desc">这局在 12 分钟时经济差达到 32%，翻盘方的三次反打分别发生在野区、河道与高地。看点在于每一次反打前的视野布设顺序。</p>
+            <div class="card-meta"><span class="hot">热度 9.2</span><span>更新 11-08 08:05</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-thumb">
+            <img src="https://picsum.photos/seed/51baoliao-shenye11/400/300" alt="深夜排位赛高分段对局截图" width="400" height="300" loading="lazy">
+            <span class="badge">排位</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">深夜排位赛 11 月 7 日：连续 6 局同英雄选择率</h3>
+            <div class="card-tags">
+              <span class="tag">高分段</span>
+              <span class="tag teal">英雄池</span>
+              <span class="tag">数据分析</span>
+            </div>
+            <p class="card-desc">11 月 7 日晚间高分段出现同一英雄连续 6 局被锁定的现象，胜率 66.7%。条目附该英雄在三个不同分段的出场与禁选对照。</p>
+            <div class="card-meta"><span class="hot">热度 8.8</span><span>更新 11-08 01:40</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-thumb">
+            <img src="https://picsum.photos/seed/51baoliao-xinren05/400/300" alt="新人挑战赛第五轮赛程表" width="400" height="300" loading="lazy">
+            <span class="badge">新人</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">新人挑战赛第 5 轮：规则放宽后的首场积分战</h3>
+            <div class="card-tags">
+              <span class="tag">赛制调整</span>
+              <span class="tag gold">新人崛起</span>
+              <span class="tag teal">积分制</span>
+            </div>
+            <p class="card-desc">本轮起新人挑战赛取消两处限制：允许跨赛道报名、单局时长上限放宽至 28 分钟。首场积分战共有 47 人完赛，前 8 名直接晋级。</p>
+            <div class="card-meta"><span class="hot">热度 8.5</span><span>更新 11-07 22:15</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-thumb">
+            <img src="https://picsum.photos/seed/51baoliao-caipan03/400/300" alt="争议判罚档案记录页" width="400" height="300" loading="lazy">
+            <span class="badge">档案</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">争议判罚档案 03 号：暂停时机判定复核</h3>
+            <div class="card-tags">
+              <span class="tag">规则解读</span>
+              <span class="tag gold">判罚复核</span>
+              <span class="tag">案例库</span>
+            </div>
+            <p class="card-desc">档案收录了 11 月 5 日星轨突围赛的一次暂停时机争议，附裁判组公开说明与两条相似历史案例的对照，便于理解暂停规则边界。</p>
+            <div class="card-meta"><span class="hot">热度 8.1</span><span>更新 11-07 19:30</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-thumb">
+            <img src="https://picsum.photos/seed/51baoliao-xuanban06/400/300" alt="选手轮换公告截图" width="400" height="300" loading="lazy">
+            <span class="badge">动态</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">星轨突围赛第 10 期阵容轮换公告</h3>
+            <div class="card-tags">
+              <span class="tag">选手动态</span>
+              <span class="tag teal">轮换</span>
+              <span class="tag">赛程</span>
+            </div>
+            <p class="card-desc">第 10 期确认 3 名主力轮换：两名选手转入替补席，一名新人首次进入首发。公告同时公布新的 BP 顺序与暂停申请流程。</p>
+            <div class="card-meta"><span class="hot">热度 8.4</span><span>更新 11-07 16:50</span></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 3. 最新动态 -->
+    <section id="feed" aria-labelledby="h-feed">
+      <div class="sec-head">
+        <h2 id="h-feed">最新爆料与赛事动态</h2>
+        <span class="sub">按时间倒序 · 10 条</span>
+      </div>
+      <div class="feed-list">
+        <div class="feed-item">
+          <span class="feed-time">今天 10:12</span>
+          <div class="feed-body">
+            <div class="feed-title">星轨突围赛第 9 期战报正式上线 <span class="new">NEW</span></div>
+            <div class="feed-summary">含完整对局时间轴、三次换家节点的时间戳与资源差曲线。</div>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-time">今天 09:35</span>
+          <div class="feed-body">
+            <div class="feed-title">逆风翻盘局第 7 期冠军赛后采访摘要</div>
+            <div class="feed-summary">选手回应“32% 经济差翻盘”的关键判断：先换视野再换资源。</div>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-time">今天 08:50</span>
+          <div class="feed-body">
+            <div class="feed-title">深夜排位赛 11 月 8 日赛程公布</div>
+            <div class="feed-summary">今晚 22:00 开赛，共 5 组对局，采用新的禁选顺序。</div>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-time">今天 07:20</span>
+          <div class="feed-body">
+            <div class="feed-title">新人挑战赛第 6 轮报名通道开放</div>
+            <div class="feed-summary">报名截至 11 月 10 日 18:00，首次允许跨赛道兼报两个项目。</div>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-time">昨天 21:10</span>
+          <div class="feed-body">
+            <div class="feed-title">争议判罚档案 03 号解封部分内容</div>
+            <div class="feed-summary">暂停时机判定复核结论公开，附裁判组三条补充说明。</div>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-time">昨天 18:45</span>
+          <div class="feed-body">
+            <div class="feed-title">星轨突围赛第 10 期 BP 规则微调</div>
+            <div class="feed-summary">后手方新增一次换位机会，调整自第 10 期起生效。</div>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-time">昨天 14:30</span>
+          <div class="feed-body">
+            <div class="feed-title">深夜排位赛 11 月 7 日数据归档</div>
+            <div class="feed-summary">高分段 6 局同英雄选择记录归档，附分段对照表。</div>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-time">11 月 6 日</span>
+          <div class="feed-body">
+            <div class="feed-title">逆风翻盘局第 8 期主题公布</div>
+            <div class="feed-summary">主题为“高地防守”，要求对局中至少完成两次高地守成。</div>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-time">11 月 5 日</span>
+          <div class="feed-body">
+            <div class="feed-title">新人挑战赛第 5 轮前 8 名晋级名单</div>
+            <div class="feed-summary">47 人完赛，晋级线为积分 21 分，三人同分按用时排序。</div>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-time">11 月 4 日</span>
+          <div class="feed-body">
+            <div class="feed-title">星轨突围赛第 9 期参赛名单确认</div>
+            <div class="feed-summary">共 16 支队伍，其中 3 支为首次进入正赛的新队伍。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 分类入口 -->
+    <section id="categories" aria-labelledby="h-categories">
+      <div class="sec-head">
+        <h2 id="h-categories">按赛道与内容类型分类</h2>
+        <span class="sub">8 个方向</span>
+      </div>
+      <div class="cat-grid">
+        <a href="/#picks" class="cat-tile"><span class="cn">星轨突围赛</span><span class="cs">策略博弈 · 资源调度</span></a>
+        <a href="/#picks" class="cat-tile"><span class="cn">逆风翻盘局</span><span class="cs">逆转操作 · 名场面</span></a>
+        <a href="/#picks" class="cat-tile"><span class="cn">深夜排位赛</span><span class="cs">高分段 · 个人风格</span></a>
+        <a href="/#picks" class="cat-tile"><span class="cn">新人挑战赛</span><span class="cs">赛制宽松 · 新人崛起</span></a>
+        <a href="/#deep" class="cat-tile"><span class="cn">规则解读</span><span class="cs">判罚 · BP · 暂停</span></a>
+        <a href="/#deep" class="cat-tile"><span class="cn">战报复盘</span><span class="cs">时间轴 · 决策链</span></a>
+        <a href="/#news" class="cat-tile"><span class="cn">选手动态</span><span class="cs">轮换 · 采访 · 转会</span></a>
+        <a href="/#comments" class="cat-tile"><span class="cn">社区热议</span><span class="cs">争议 · 讨论焦点</span></a>
+      </div>
+    </section>
+
+    <!-- 5. 深度解析 -->
+    <section id="deep" aria-labelledby="h-deep">
+      <div class="sec-head">
+        <h2 id="h-deep">深度解析：四大赛道的判断维度与差异</h2>
+        <span class="sub">约 780 字</span>
+      </div>
+      <div class="article">
+        <h3>星轨突围赛与逆风翻盘局的观赏逻辑差异</h3>
+        <p>
+          两个赛道都涉及逆风局面，但观看重点完全不同。<strong>星轨突围赛</strong>的胜负常由中段的资源置换决定，一局 25—35 分钟，前 10 分钟是布局，后 10 分钟是兑现。判断一场星轨对局是否值得回看，先看第 12—18 分钟有没有出现资源位交换；出现交换且经济差在 10% 以内，通常意味着后半程会进入拉锯。
+        </p>
+        <p>
+          <strong>逆风翻盘局</strong>则把“落后”本身作为主题，赛制要求对局必须出现至少 20% 的经济差才计入正式场次。它的看点集中在反打窗口：视野何时补齐、资源何时让出、何时强行接团。两相对照，星轨看的是“资源怎么换”，翻盘局看的是“节奏怎么抢”。
+        </p>
+
+        <div class="compare-grid">
+          <div class="compare-col warm">
+            <h4>星轨突围赛 · 关注点</h4>
+            <ul>
+              <li>中段资源位交换次数与时机</li>
+              <li>经济差曲线的拐点位置</li>
+              <li>BP 阶段后手方的换位选择</li>
+              <li>暂停申请是否影响节奏</li>
+            </ul>
+          </div>
+          <div class="compare-col">
+            <h4>逆风翻盘局 · 关注点</h4>
+            <ul>
+              <li>落后方的视野补齐顺序</li>
+              <li>第一次成功反打的时间点</li>
+              <li>资源让出与强接团的取舍</li>
+              <li>经济差从 20% 收窄的斜率</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>深夜排位赛与新人挑战赛的参与门槛</h3>
+        <p>
+          <strong>深夜排位赛</strong>的门槛在分段：只有达到指定高分段才能进入对局池，因此它呈现的是接近职业水准的操作密度，适合观察个人风格与英雄池深度。判断一位选手在排位赛里的真实水平，不能只看单局胜负，要看同英雄跨分段的表现——同一英雄在高分段出场率高、胜率稳定，才说明英雄池转化有效。
+        </p>
+        <p>
+          <strong>新人挑战赛</strong>的规则更宽松：允许跨赛道报名、单局时长上限较高、积分计算含参与分。它的价值在于观察新人成长曲线，而非即时对抗强度。看新人挑战赛时，先看第 3—5 轮的积分变化，再看晋级线附近的同分排序规则，这往往比赛果本身更能反映赛制设计。
+        </p>
+
+        <h3>爆料档案的可信度分层方法</h3>
+        <p>
+          每日爆料中，不同来源的信息可信度差异明显。可以按三层来读：
+        </p>
+        <ul>
+          <li><strong>第一层 · 官方公告与赛制文件</strong>：规则调整、名单轮换、赛程变更以此为准，争议判罚的复核结论也归入此层。</li>
+          <li><strong>第二层 · 战报与数据归档</strong>：时间轴、经济差曲线、英雄选择率等可复核的数据，用于验证第一层的结论是否在实战中成立。</li>
+          <li><strong>第三层 · 社区讨论与场外花絮</strong>：选手状态、训练传闻、观众反应，可作为背景理解，但不宜单独作为判断依据。</li>
+        </ul>
+        <p>
+          把三层分开看，能避免把讨论热度当成事实。例如争议判罚档案 03 号中，裁判说明属于第一层，而围绕暂停时机的社区争论属于第三层，二者需要分别对待。
+        </p>
+
+        <h3>投入时间前的三个判断问题</h3>
+        <p>
+          面对每天新增的十几条爆料，可以用三个问题快速筛选：这场对局有没有出现罕见的资源交换或反打窗口？这条爆料是否涉及规则变化或名单调整？这个条目是否属于你正在追的赛道？三问中至少命中一问，再决定是否展开看完整复盘，能明显降低无效浏览。
+        </p>
+      </div>
+    </section>
+
+    <!-- 6. 观赛路径 -->
+    <section id="guide" aria-labelledby="h-guide">
+      <div class="sec-head">
+        <h2 id="h-guide">观赛与内容消费路径</h2>
+        <span class="sub">从入门到复盘的顺序</span>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div>
+            <div class="st-title">先看当日动态，确定今天有哪些新条目</div>
+            <div class="st-desc">从最新动态列表快速扫一遍标题，标出涉及规则变化、名单轮换或战报上线的条目，其余场外花絮可暂缓。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <div class="st-title">按赛道挑选：策略型先看星轨，操作型先看翻盘局</div>
+            <div class="st-desc">喜欢长线布局的从星轨突围赛入手，偏好高强度对抗的直接进逆风翻盘局；两个赛道都看时，先看星轨再看翻盘局，避免节奏错位。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <div class="st-title">用战报时间轴定位关键节点，再决定是否看完整复盘</div>
+            <div class="st-desc">战报里的时间轴标出了资源交换与反打窗口，先看节点摘要；若节点涉及争议判罚或罕见操作，再展开完整复盘。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <div class="st-title">规则类条目单独归档，便于横向对照</div>
+            <div class="st-desc">BP 调整、暂停规则、晋级排序等条目建议单独记录，同一规则在不同期次的变化放在一起看，比单条阅读更有价值。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <div class="st-title">比较同类条目时，以数据层为先、讨论层为后</div>
+            <div class="st-desc">两个选手或两场对局的可比性，取决于分段、英雄池、经济差曲线等数据是否完整；社区讨论热度只作为参考，不作为主要依据。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FAQ -->
+    <section id="faq" aria-labelledby="h-faq">
+      <div class="sec-head">
+        <h2 id="h-faq">围绕赛事与爆料的常见问答</h2>
+        <span class="sub">6 个高频问题</span>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>星轨突围赛一般多久更新一期？</summary>
+          <div class="faq-answer">正赛按周更新，通常每 7 天一期；每期结束后 24 小时内上线战报与关键节点时间轴。第 9 期于 11 月 8 日更新战报，第 10 期预计 11 月 15 日开赛。</div>
+        </details>
+        <details class="faq-item">
+          <summary>逆风翻盘局和星轨突围赛有什么区别？</summary>
+          <div class="faq-answer">核心区别在赛制门槛与观看重点。逆风翻盘局要求对局出现至少 20% 经济差才计入正式场次，重点看反打窗口；星轨突围赛不设经济差门槛，重点看中段资源位交换与 BP 博弈。</div>
+        </details>
+        <details class="faq-item">
+          <summary>第一次接触每日大赛，从哪条内容开始看比较好？</summary>
+          <div class="faq-answer">建议先看当日动态里的战报摘要，再挑一场星轨突围赛的完整复盘。战报摘要能快速建立对局结构感，完整复盘则帮助理解资源交换的因果关系。新人挑战赛的规则更宽松，也可作为入门赛道。</div>
+        </details>
+        <details class="faq-item">
+          <summary>深夜排位赛的选手水平怎么判断？</summary>
+          <div class="faq-answer">不要只看单局胜负。先看该选手在同一英雄上跨分段的出场率与胜率是否稳定，再看补位英雄的表现。高分段出场率高、胜率波动小的选手，通常英雄池更深。</div>
+        </details>
+        <details class="faq-item">
+          <summary>爆料档案里的判罚复核结论以哪个为准？</summary>
+          <div class="faq-answer">以裁判组公开说明为准，它属于官方公告层。社区讨论可以说明争议焦点在哪里，但不改变复核结论。同一判罚若出现后续修订，以最新一期档案中的说明为准。</div>
+        </details>
+        <details class="faq-item">
+          <summary>新人挑战赛的晋级线是怎么定的？</summary>
+          <div class="faq-answer">按积分排序取前 8 名，同分时按完赛用时排序。第 5 轮晋级线为积分 21 分。跨赛道兼报两个项目的选手，积分按项目分别计算，不合并累计。</div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 8. 用户评论 -->
+    <section id="comments" aria-labelledby="h-comments">
+      <div class="sec-head">
+        <h2 id="h-comments">观众与选手的讨论</h2>
+        <span class="sub">14 条 · 围绕具体条目</span>
+      </div>
+      <div class="comment-grid">
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#b83b2e">风</span><span class="comment-name">风起青萍</span><span class="comment-date">11-08</span></div>
+          <p class="comment-text"><span class="ref">星轨第 9 期</span>那次双资源位换家看得我反复回放，最后 4 分钟才把经济差拉回来，换家时机真的准。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#1f6f6b">苇</span><span class="comment-name">芦苇荡里</span><span class="comment-date">11-08</span></div>
+          <p class="comment-text">翻盘局 32% 经济差那段，反打前先补视野的顺序值得记下来，比单纯看操作有用。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#c28a2c">白</span><span class="comment-name">白夜行人</span><span class="comment-date">11-08</span></div>
+          <p class="comment-text">深夜排位赛那个连续 6 局同英雄的数据挺有意思，但我觉得样本还是偏少，再观察两周更稳。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#5a4a8a">半</span><span class="comment-name">半盏茶</span><span class="comment-date">11-07</span></div>
+          <p class="comment-text">新人挑战赛取消跨赛道限制之后，报名人数明显多了，第 5 轮 47 人完赛比上轮多了一截。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#8c2a20">老</span><span class="comment-name">老树盘根</span><span class="comment-date">11-07</span></div>
+          <p class="comment-text">判罚档案 03 号解封部分内容后，暂停时机的讨论清楚多了，裁判说明写得很细。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#4a7a4a">林</span><span class="comment-name">林间有风</span><span class="comment-date">11-07</span></div>
+          <p class="comment-text">第 10 期 BP 后手方多一次换位，这个调整对星轨的中段布局影响应该不小，等开赛验证。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#b83b2e">小</span><span class="comment-name">小满不慌</span><span class="comment-date">11-07</span></div>
+          <p class="comment-text">翻盘局第 8 期主题是高地防守，感觉比单纯比拼翻盘更难，守成和反打的取舍很考验判断。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#1f6f6b">观</span><span class="comment-name">观棋不语</span><span class="comment-date">11-06</span></div>
+          <p class="comment-text">星轨的复盘时间轴做得方便，节点标出来之后，直接跳到换家那段就行，不用整局看。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#c28a2c">三</span><span class="comment-name">三更灯火</span><span class="comment-date">11-06</span></div>
+          <p class="comment-text">新人挑战赛同分按用时排序这条，我觉得比直接抽签合理，至少鼓励队伍提速。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#5a4a8a">南</span><span class="comment-name">南墙撞过</span><span class="comment-date">11-06</span></div>
+          <p class="comment-text">深夜排位赛的英雄池分析如果能加上禁用率就更好了，光看出场率会有点片面。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#8c2a20">陈</span><span class="comment-name">陈年旧事</span><span class="comment-date">11-05</span></div>
+          <p class="comment-text">争议判罚那次我也看了直播，暂停申请的时间点确实卡在边界上，复核结论说得通。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#4a7a4a">青</span><span class="comment-name">青石巷口</span><span class="comment-date">11-05</span></div>
+          <p class="comment-text">星轨第 9 期参赛名单里三支新队伍，其中一支打法很激进，前 10 分钟就压资源，值得关注。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#b83b2e">一</span><span class="comment-name">一只咸鱼</span><span class="comment-date">11-04</span></div>
+          <p class="comment-text">作为刚看的人，我觉得战报摘要比完整复盘好懂，先看摘要再决定要不要展开。</p>
+        </div>
+        <div class="comment-card">
+          <div class="comment-head"><span class="avatar" style="background:#1f6f6b">夜</span><span class="comment-name">夜航船</span><span class="comment-date">11-04</span></div>
+          <p class="comment-text">翻盘局第 7 期经济差曲线如果能像星轨一样给到分钟级，复盘会更直观。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. 相关资讯 -->
+    <section id="news" aria-labelledby="h-news">
+      <div class="sec-head">
+        <h2 id="h-news">相关资讯与规则动态</h2>
+        <span class="sub">6 条 · 11 月上旬</span>
+      </div>
+      <div class="news-list">
+        <article class="news-item">
+          <div class="news-thumb"><img src="https://picsum.photos/seed/51baoliao-news-bp10/600/400" alt="星轨突围赛第 10 期 BP 规则调整公告配图" width="600" height="400" loading="lazy"></div>
+          <div class="news-body">
+            <h3>星轨突围赛第 10 期 BP 规则调整：后手方新增一次换位</h3>
+            <p>调整自第 10 期起生效，后手方在第二阶段可多换一次位，官方称目的是增加阵容博弈空间。</p>
+            <div class="news-date">2026-11-07</div>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-thumb"><img src="https://picsum.photos/seed/51baoliao-news-pause/600/400" alt="暂停时机判罚复核说明配图" width="600" height="400" loading="lazy"></div>
+          <div class="news-body">
+            <h3>暂停时机判罚复核结论公开，附三条补充说明</h3>
+            <p>裁判组对 11 月 5 日星轨突围赛的一次暂停申请作出复核，明确边界条件并补充相似案例对照。</p>
+            <div class="news-date">2026-11-06</div>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-thumb"><img src="https://picsum.photos/seed/51baoliao-news-rookie6/600/400" alt="新人挑战赛第 6 轮报名公告配图" width="600" height="400" loading="lazy"></div>
+          <div class="news-body">
+            <h3>新人挑战赛第 6 轮报名开放，首次允许跨赛道兼报</h3>
+            <p>报名截至 11 月 10 日 18:00，兼报两个项目的选手积分分别计算，晋级线按项目单独划线。</p>
+            <div class="news-date">2026-11-06</div>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-thumb"><img src="https://picsum.photos/seed/51baoliao-news-comback8/600/400" alt="逆风翻盘局第 8 期主题海报" width="600" height="400" loading="lazy"></div>
+          <div class="news-body">
+            <h3>逆风翻盘局第 8 期主题公布：高地防守</h3>
+            <p>第 8 期要求对局中至少完成两次高地守成，赛制同时收紧单局时长上限至 30 分钟。</p>
+            <div class="news-date">2026-11-05</div>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-thumb"><img src="https://picsum.photos/seed/51baoliao-news-roster10/600/400" alt="星轨突围赛第 10 期阵容轮换公告配图" width="600" height="400" loading="lazy"></div>
+          <div class="news-body">
+            <h3>星轨突围赛第 10 期阵容轮换：一名新人进入首发</h3>
+            <p>第 10 期确认 3 名主力轮换，其中一名新人首次进入首发，公告同步公布新的暂停申请流程。</p>
+            <div class="news-date">2026-11-04</div>
+          </div>
+        </article>
+        <article class="news-item">
+          <div class="news-thumb"><img src="https://picsum.photos/seed/51baoliao-news-rankdata/600/400" alt="深夜排位赛高分段数据归档配图" width="600" height="400" loading="lazy"></div>
+          <div class="news-body">
+            <h3>深夜排位赛 11 月 7 日数据归档：同英雄连续 6 局记录</h3>
+            <p>归档数据包含该英雄在三个分段的出场与禁选对照，以及 6 局对局的平均时长与胜负分布。</p>
+            <div class="news-date">2026-11-03</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 10. 相关推荐 -->
+    <section id="related" aria-labelledby="h-related">
+      <div class="sec-head">
+        <h2 id="h-related">延伸方向与相关条目</h2>
+        <span class="sub">按内容方向索引</span>
+      </div>
+      <div class="tag-index">
+        <a href="/#deep">星轨资源位交换复盘</a>
+        <a href="/#deep">逆风翻盘反打窗口</a>
+        <a href="/#picks">深夜排位英雄池分析</a>
+        <a href="/#picks">新人挑战赛积分规则</a>
+        <a href="/#news">BP 规则调整对照</a>
+        <a href="/#news">暂停时机判罚案例</a>
+        <a href="/#guide">战报时间轴阅读法</a>
+        <a href="/#faq">竞技数据可信度分层</a>
+      </div>
+    </section>
+
+    <!-- 11. 补充：热度榜单 -->
+    <section id="rank" aria-labelledby="h-rank">
+      <div class="sec-head">
+        <h2 id="h-rank">11 月 8 日赛道热度榜单</h2>
+        <span class="sub">按当日讨论与回看量排序</span>
+      </div>
+      <div class="rank-list">
+        <div class="rank-item">
+          <span class="rank-no">01</span>
+          <div class="rank-body">
+            <div class="rank-name">星轨突围赛第 9 期战报</div>
+            <div class="rank-sub">双资源位换家 · 完整时间轴</div>
+          </div>
+          <span class="rank-score">9.6</span>
+        </div>
+        <div class="rank-item">
+          <span class="rank-no">02</span>
+          <div class="rank-body">
+            <div class="rank-name">逆风翻盘局第 7 期高光</div>
+            <div class="rank-sub">32% 经济差 · 三段反打</div>
+          </div>
+          <span class="rank-score">9.2</span>
+        </div>
+        <div class="rank-item">
+          <span class="rank-no">03</span>
+          <div class="rank-body">
+            <div class="rank-name">深夜排位赛 11 月 7 日数据归档</div>
+            <div class="rank-sub">同英雄连续 6 局 · 分段对照</div>
+          </div>
+          <span class="rank-score">8.8</span>
+        </div>
+        <div class="rank-item">
+          <span class="rank-no">04</span>
+          <div class="rank-body">
+            <div class="rank-name">新人挑战赛第 5 轮晋级名单</div>
+            <div class="rank-sub">47 人完赛 · 积分线 21 分</div>
+          </div>
+          <span class="rank-score">8.5</span>
+        </div>
+        <div class="rank-item">
+          <span class="rank-no">05</span>
+          <div class="rank-body">
+            <div class="rank-name">星轨突围赛第 10 期阵容轮换</div>
+            <div class="rank-sub">3 名主力轮换 · 新人首发</div>
+          </div>
+          <span class="rank-score">8.4</span>
+        </div>
+        <div class="rank-item">
+          <span class="rank-no">06</span>
+          <div class="rank-body">
+            <div class="rank-name">争议判罚档案 03 号复核</div>
+            <div class="rank-sub">暂停时机 · 边界条件说明</div>
+          </div>
+          <span class="rank-score">8.1</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. 补充：赛事时间线 -->
+    <section id="timeline" aria-labelledby="h-timeline">
+      <div class="sec-head">
+        <h2 id="h-timeline">11 月上旬赛事时间线</h2>
+        <span class="sub">关键节点</span>
+      </div>
+      <div class="timeline" style="background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius-m);">
+        <div class="tl-item">
+          <div class="tl-time">11 月 3 日</div>
+          <div class="tl-text">深夜排位赛高分段数据归档上线，含同英雄 6 局记录</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11 月 4 日</div>
+          <div class="tl-text">星轨突围赛第 9 期参赛名单确认，3 支新队伍进入正赛</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11 月 5 日</div>
+          <div class="tl-text">新人挑战赛第 5 轮完赛，47 人完赛、积分线 21 分</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11 月 6 日</div>
+          <div class="tl-text">逆风翻盘局第 8 期主题公布，高地防守、时长上限收紧</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11 月 7 日</div>
+          <div class="tl-text">星轨突围赛第 10 期 BP 规则微调，后手方新增换位</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">11 月 8 日</div>
+          <div class="tl-text">星轨突围赛第 9 期战报上线，翻盘局第 7 期采访摘要更新</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 右侧辅助栏 -->
+  <aside class="side-col" aria-label="辅助信息">
+    <div class="side-panel">
+      <div class="side-head">今日热榜 <span class="hint">按热度</span></div>
+      <div class="hot-list">
+        <div class="hot-item"><span class="hot-no">1</span><div><div class="hot-name">星轨第 9 期双资源位换家</div><div class="hot-meta">战报 · 9.6</div></div></div>
+        <div class="hot-item"><span class="hot-no">2</span><div><div class="hot-name">翻盘局 32% 经济差三段反打</div><div class="hot-meta">高光 · 9.2</div></div></div>
+        <div class="hot-item"><span class="hot-no">3</span><div><div class="hot-name">深夜排位赛同英雄 6 连记录</div><div class="hot-meta">数据 · 8.8</div></div></div>
+        <div class="hot-item"><span class="hot-no">4</span><div><div class="hot-name">新人挑战赛第 6 轮报名开放</div><div class="hot-meta">赛程 · 8.5</div></div></div>
+        <div class="hot-item"><span class="hot-no">5</span><div><div class="hot-name">星轨第 10 期 BP 规则微调</div><div class="hot-meta">规则 · 8.4</div></div></div>
+        <div class="hot-item"><span class="hot-no">6</span><div><div class="hot-name">争议判罚档案 03 号解封</div><div class="hot-meta">档案 · 8.1</div></div></div>
+      </div>
+    </div>
+
+    <div class="side-panel">
+      <div class="side-head">今日更新流 <span class="hint">实时</span></div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-time">10:12</div><div class="tl-text">星轨第 9 期战报上线</div></div>
+        <div class="tl-item"><div class="tl-time">09:35</div><div class="tl-text">翻盘局第 7 期采访摘要</div></div>
+        <div class="tl-item"><div class="tl-time">08:50</div><div class="tl-text">深夜排位赛 11-08 赛程公布</div></div>
+        <div class="tl-item"><div class="tl-time">07:20</div><div class="tl-text">新人挑战赛第 6 轮报名开放</div></div>
+        <div class="tl-item"><div class="tl-time">昨天 21:10</div><div class="tl-text">判罚档案 03 号部分解封</div></div>
+      </div>
+    </div>
+
+    <div class="side-quote">
+      <span class="qm">“</span>
+      先换视野，再换资源。落后的时候，最忌讳的是在视野没补齐的情况下强接团。
+      <div class="qby">—— 逆风翻盘局第 7 期冠军赛后采访摘要</div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- ===== 页尾 ===== -->
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <span class="brand-mark" aria-hidden="true">51</span>
+          <span class="brand-name">51今日爆料每日大赛<small>DAILY LEAK ARENA</small></span>
+        </div>
+        <p class="foot-desc">按日汇总星轨突围赛、逆风翻盘局、深夜排位赛与新人挑战赛的战报、规则动态与社区讨论，为追赛与复盘提供可追溯的条目索引。</p>
+      </div>
+      <div class="foot-col">
+        <h4>内容频道</h4>
+        <ul>
+          <li><a href="/#picks">精选速递</a></li>
+          <li><a href="/#feed">最新动态</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">观赛路径</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>赛道与规则</h4>
+        <ul>
+          <li><a href="/#categories">星轨突围赛</a></li>
+          <li><a href="/#categories">逆风翻盘局</a></li>
+          <li><a href="/#categories">深夜排位赛</a></li>
+          <li><a href="/#categories">新人挑战赛</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>互动与档案</h4>
+        <ul>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#rank">热度榜单</a></li>
+          <li><a href="/#timeline">赛事时间线</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 51今日爆料每日大赛 · 内容聚合展示</span>
+      <span>部分内容为示例数据，仅用于展示页面结构</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var form = document.getElementById('searchForm');
+    var input = document.getElementById('searchInput');
+    var status = document.getElementById('searchStatus');
+    if (!form || !input || !status) return;
+
+    // 收集可查找的内容块
+    var selectors = [
+      '.card', '.feed-item', '.cat-tile', '.faq-item',
+      '.comment-card', '.news-item', '.rank-item', '.tl-item',
+      '.tag-index a', '.step', '.article p', '.article li'
+    ];
+    var allBlocks = [];
+    selectors.forEach(function (sel) {
+      document.querySelectorAll(sel).forEach(function (el) {
+        if (allBlocks.indexOf(el) === -1) allBlocks.push(el);
+      });
+    });
+
+    function clearHighlight() {
+      allBlocks.forEach(function (el) { el.style.outline = ''; el.style.outlineOffset = ''; });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var q = input.value.trim().toLowerCase();
+      clearHighlight();
+      if (!q) {
+        status.classList.remove('on');
+        status.textContent = '';
+        return;
+      }
+      var hits = allBlocks.filter(function (el) {
+        return (el.textContent || '').toLowerCase().indexOf(q) !== -1;
+      });
+      if (hits.length === 0) {
+        status.classList.add('on');
+        status.textContent = '未找到与“' + input.value.trim() + '”相关的内容，请尝试其他关键词，例如「星轨」「翻盘局」「新人挑战赛」。';
+        return;
+      }
+      status.classList.add('on');
+      status.textContent = '找到 ' + hits.length + ' 条与“' + input.value.trim() + '”相关的内容，已高亮显示。';
+      hits.forEach(function (el) {
+        el.style.outline = '2px solid #b83b2e';
+        el.style.outlineOffset = '2px';
+      });
+      if (hits[0].scrollIntoView) {
+        hits[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    // 输入为空时清除高亮
+    input.addEventListener('input', function () {
+      if (!input.value.trim()) {
+        clearHighlight();
+        status.classList.remove('on');
+        status.textContent = '';
+      }
+    });
+  })();
+</script>
+
+</body>
+        </html>

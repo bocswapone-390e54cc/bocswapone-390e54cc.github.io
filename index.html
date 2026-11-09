@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漫蛙 - 漫画条目聚合与追更指南</title>
+<meta name="description" content="漫蛙汇聚连载漫画、完结神作与条漫新番的具体条目信息，提供更新追踪、类型分类、深度解析与追更顺序建议，适合想找下一部漫画看点的读者。">
+<meta name="keywords" content="条漫更新, 连载漫画, 完结漫画, 漫画追更, 漫画类型分类">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23135c4a'/%3E%3Ccircle cx='24' cy='24' r='7' fill='%23f2c14e'/%3E%3Ccircle cx='42' cy='24' r='7' fill='%23f2c14e'/%3E%3Cpath d='M18 42c4 8 24 8 28 0' stroke='%23f2c14e' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1d2b26;
+  --ink-soft:#4a5c54;
+  --ink-faint:#7d8f87;
+  --paper:#f6f4ee;
+  --panel:#ffffff;
+  --panel-2:#eef3ef;
+  --line:#d9e2dc;
+  --brand:#135c4a;
+  --brand-2:#1d7f66;
+  --accent:#e0663a;
+  --accent-soft:#f7e3d8;
+  --gold:#c99b2c;
+  --radius:12px;
+  --radius-sm:8px;
+  --shadow:0 2px 10px rgba(19,92,74,.08);
+  --shadow-lg:0 8px 26px rgba(19,92,74,.12);
+  --sticky-offset:132px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--sticky-offset)}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.35;margin:0 0 .5em;color:var(--ink)}
+p{margin:0 0 .9em}
+ul,ol{margin:0 0 .9em;padding-left:1.25em}
+button{font-family:inherit}
+
+/* 吸顶公告条 + 页头 */
+.sticky-top{position:sticky;top:0;z-index:50}
+.notice-bar{
+  background:var(--brand);color:#eaf3ef;font-size:13px;
+  padding:7px 20px;display:flex;gap:14px;align-items:center;justify-content:center;
+  flex-wrap:wrap;
+}
+.notice-bar strong{color:#f2c14e;font-weight:600}
+.notice-bar .dot{width:5px;height:5px;border-radius:50%;background:#8fd0bd;display:inline-block}
+.site-header{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  max-width:1320px;margin:0 auto;padding:10px 20px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.brand svg{width:34px;height:34px}
+.brand-name{font-size:20px;font-weight:700;letter-spacing:.5px;color:var(--brand)}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.main-nav a{
+  padding:5px 10px;border-radius:var(--radius-sm);font-size:14px;color:var(--ink-soft);
+}
+.main-nav a:hover{background:var(--panel-2);text-decoration:none;color:var(--brand)}
+.header-search{display:flex;align-items:center;gap:6px}
+.header-search input{
+  border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:6px 10px;font-size:13px;width:150px;background:#fbfdfb;color:var(--ink);
+}
+.header-search input:focus{outline:2px solid var(--brand-2);outline-offset:1px}
+.header-search button{
+  border:0;background:var(--brand);color:#fff;border-radius:var(--radius-sm);
+  padding:7px 12px;font-size:13px;cursor:pointer;
+}
+.header-search button:hover{background:var(--brand-2)}
+.search-feedback{
+  max-width:1320px;margin:0 auto;padding:0 20px;font-size:13px;color:var(--accent);
+  display:none;
+}
+.search-feedback.show{display:block;padding-bottom:8px}
+
+/* 布局：左侧单栏 */
+.layout{
+  max-width:1320px;margin:0 auto;padding:26px 20px 50px;
+  display:grid;grid-template-columns:218px minmax(0,1fr);gap:28px;align-items:start;
+}
+.channel-rail{
+  position:sticky;top:var(--sticky-offset);
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px;box-shadow:var(--shadow);
+}
+.channel-rail h2{
+  font-size:13px;letter-spacing:1px;color:var(--ink-faint);font-weight:600;
+  text-transform:uppercase;margin-bottom:10px;padding-left:6px;
+}
+.channel-rail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.channel-rail a{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 10px;border-radius:var(--radius-sm);font-size:14px;color:var(--ink-soft);
+}
+.channel-rail a:hover,.channel-rail a:focus-visible{
+  background:var(--panel-2);color:var(--brand);text-decoration:none;
+}
+.channel-rail .cnt{font-size:12px;color:var(--ink-faint)}
+.rail-note{
+  margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);
+  font-size:12px;color:var(--ink-faint);line-height:1.6;
+}
+
+/* 首屏 */
+.hero{
+  background:linear-gradient(135deg,#135c4a 0%,#1d7f66 62%,#2f9c7f 100%);
+  border-radius:var(--radius);color:#eef7f3;padding:30px 30px 26px;
+  position:relative;overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:26px;
+}
+.hero::after{
+  content:"";position:absolute;right:-70px;top:-70px;width:260px;height:260px;
+  border-radius:50%;background:rgba(242,193,78,.16);
+}
+.hero::before{
+  content:"";position:absolute;right:46px;bottom:-90px;width:180px;height:180px;
+  border-radius:50%;border:18px solid rgba(255,255,255,.07);
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:7px;font-size:12.5px;letter-spacing:1px;
+  background:rgba(255,255,255,.14);border-radius:999px;padding:4px 12px;margin-bottom:14px;
+}
+.hero h1{
+  font-size:clamp(30px,4.6vw,44px);color:#fff;margin:0 0 12px;letter-spacing:2px;
+  position:relative;z-index:1;
+}
+.hero-lead{
+  max-width:640px;font-size:15px;line-height:1.85;color:#dcefe8;position:relative;z-index:1;
+  margin-bottom:18px;
+}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.btn{
+  display:inline-block;padding:9px 18px;border-radius:999px;font-size:14px;
+  border:1px solid transparent;cursor:pointer;
+}
+.btn-primary{background:#f2c14e;color:#20443a;font-weight:600}
+.btn-primary:hover{background:#f7d478;text-decoration:none}
+.btn-ghost{border-color:rgba(255,255,255,.5);color:#eaf6f1}
+.btn-ghost:hover{background:rgba(255,255,255,.12);text-decoration:none}
+.hero-stats{
+  display:flex;gap:26px;flex-wrap:wrap;margin-top:22px;position:relative;z-index:1;
+  border-top:1px solid rgba(255,255,255,.18);padding-top:16px;
+}
+.hero-stats div span{display:block;font-size:12px;color:#a9d3c6}
+.hero-stats div strong{font-size:19px;color:#fff;font-weight:600}
+
+/* 板块通用 */
+.board{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;margin-bottom:24px;box-shadow:var(--shadow);
+}
+.board-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.board-head h2{
+  font-size:20px;margin:0;position:relative;padding-left:13px;
+}
+.board-head h2::before{
+  content:"";position:absolute;left:0;top:6px;bottom:6px;width:4px;border-radius:2px;
+  background:var(--accent);
+}
+.board-sub{font-size:13px;color:var(--ink-faint);margin:0 0 16px}
+.board-sub a{font-size:13px}
+
+/* 概览 */
+.overview p{font-size:14.5px;color:var(--ink-soft);line-height:1.9}
+.overview strong{color:var(--brand)}
+
+/* 精选卡片 */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:16px}
+.card{
+  border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;
+  background:#fff;display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s;
+}
+.card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.card-cover{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--panel-2)}
+.card-body{padding:12px 13px 14px;display:flex;flex-direction:column;flex:1}
+.card-body h3{font-size:15.5px;margin:0 0 6px}
+.card-type{
+  display:inline-block;font-size:11.5px;color:#fff;background:var(--brand-2);
+  border-radius:4px;padding:1px 7px;margin-bottom:7px;
+}
+.card-body p{font-size:13px;color:var(--ink-soft);line-height:1.7;margin:0 0 10px;flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px}
+.tag{
+  font-size:11.5px;color:var(--ink-soft);background:var(--panel-2);
+  border-radius:4px;padding:1px 7px;white-space:nowrap;
+}
+.card-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint)}
+.card-meta .hot{color:var(--accent)}
+
+/* 更新列表 */
+.update-list{list-style:none;margin:0;padding:0}
+.update-list li{
+  display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:12px;align-items:center;
+  padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.update-list li:last-child{border-bottom:0}
+.update-list .u-time{font-size:12.5px;color:var(--ink-faint)}
+.update-list .u-name{font-weight:600;color:var(--ink)}
+.update-list .u-name:hover{color:var(--brand)}
+.update-list .u-desc{font-size:12.5px;color:var(--ink-soft)}
+.update-list .u-badge{
+  font-size:11.5px;background:var(--accent-soft);color:#a8451f;
+  border-radius:4px;padding:1px 8px;white-space:nowrap;
+}
+
+/* 分类入口 */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.cat-item{
+  border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px 14px;
+  background:#fbfdfb;transition:border-color .18s,background .18s;
+}
+.cat-item:hover{border-color:var(--brand-2);background:#f2f9f5;text-decoration:none}
+.cat-item h3{font-size:15px;margin:0 0 4px;color:var(--brand)}
+.cat-item p{font-size:12.5px;color:var(--ink-faint);margin:0;line-height:1.6}
+
+/* 深度解析 */
+.deep p{font-size:14.5px;color:var(--ink-soft);line-height:1.9}
+.deep h3{font-size:16.5px;margin-top:22px;color:var(--brand);padding-left:10px;border-left:3px solid var(--gold)}
+.deep ul li{margin-bottom:6px;font-size:14px;color:var(--ink-soft)}
+.deep .callout{
+  background:var(--panel-2);border-left:4px solid var(--brand-2);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:12px 16px;font-size:14px;color:var(--ink-soft);margin:14px 0;
+}
+
+/* 体验指南：步骤 */
+.steps{list-style:none;counter-reset:step;margin:0;padding:0;display:grid;gap:12px}
+.steps li{
+  counter-increment:step;display:grid;grid-template-columns:38px minmax(0,1fr);gap:13px;
+  background:#fbfdfb;border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px 15px;
+}
+.steps li::before{
+  content:counter(step);width:34px;height:34px;border-radius:50%;background:var(--brand);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;
+}
+.steps h3{font-size:15px;margin:0 0 4px}
+.steps p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.7}
+
+/* 对照面板 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden}
+.compare > div{padding:14px 16px}
+.compare .c-head{background:var(--panel-2);font-weight:600;font-size:14px;color:var(--brand)}
+.compare .c-cell{border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-soft)}
+.compare .c-cell:nth-child(odd){background:#fbfdfb}
+
+/* FAQ */
+.faq details{
+  border:1px solid var(--line);border-radius:var(--radius-sm);padding:0;margin-bottom:9px;background:#fbfdfb;
+}
+.faq summary{
+  cursor:pointer;padding:12px 15px;font-size:14.5px;font-weight:600;color:var(--ink);
+  list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:19px;color:var(--brand-2);font-weight:400;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq details[open] summary{border-bottom:1px solid var(--line)}
+.faq .f-body{padding:12px 15px;font-size:13.5px;color:var(--ink-soft);line-height:1.8}
+
+/* 评论 */
+.comments{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.comment{
+  border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;background:#fbfdfb;
+}
+.comment .c-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
+.comment .c-name{font-size:13.5px;font-weight:600;color:var(--brand)}
+.comment .c-date{font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
+.comment p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.7}
+
+/* 资讯 */
+.news-list{display:grid;gap:14px}
+.news-item{display:grid;grid-template-columns:132px minmax(0,1fr);gap:16px;align-items:start}
+.news-item img{width:132px;height:88px;object-fit:cover;border-radius:var(--radius-sm);background:var(--panel-2)}
+.news-item h3{font-size:15px;margin:0 0 4px}
+.news-item time{font-size:12px;color:var(--ink-faint);display:block;margin-bottom:4px}
+.news-item p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.7}
+
+/* 相关推荐标签索引 */
+.rel-tags{display:flex;flex-wrap:wrap;gap:9px}
+.rel-tags a{
+  border:1px solid var(--line);border-radius:999px;padding:6px 15px;font-size:13.5px;
+  color:var(--ink-soft);background:#fbfdfb;
+}
+.rel-tags a:hover{border-color:var(--brand);color:var(--brand);text-decoration:none;background:#f2f9f5}
+
+/* 榜单 */
+.rank-list{list-style:none;margin:0;padding:0;counter-reset:rank}
+.rank-list li{
+  counter-increment:rank;display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:12px;
+  align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px;
+}
+.rank-list li:last-child{border-bottom:0}
+.rank-list li::before{
+  content:counter(rank);font-size:13px;font-weight:700;color:var(--ink-faint);text-align:center;
+}
+.rank-list li:nth-child(-n+3)::before{color:var(--accent)}
+.rank-list .r-name{font-weight:600}
+.rank-list .r-score{font-size:12.5px;color:var(--gold);font-weight:600}
+
+/* 时间线 */
+.timeline{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line)}
+.timeline li{position:relative;padding:0 0 16px 16px;font-size:13.5px;color:var(--ink-soft)}
+.timeline li::before{
+  content:"";position:absolute;left:-25px;top:6px;width:10px;height:10px;border-radius:50%;
+  background:#fff;border:2px solid var(--brand-2);
+}
+.timeline time{display:block;font-size:12px;color:var(--ink-faint);margin-bottom:2px}
+.timeline strong{color:var(--ink)}
+
+/* 页尾 */
+.site-footer{background:#123a30;color:#bcd6cd;padding:36px 20px 22px;margin-top:10px}
+.footer-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}
+.site-footer h3{color:#fff;font-size:15px;margin:0 0 10px}
+.site-footer p{font-size:13px;line-height:1.8;margin:0 0 10px;color:#a9c7bd}
+.site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.site-footer ul a{font-size:13px;color:#bcd6cd}
+.site-footer ul a:hover{color:#f2c14e;text-decoration:none}
+.footer-brand{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.footer-brand svg{width:30px;height:30px}
+.footer-brand span{font-size:18px;font-weight:700;color:#fff;letter-spacing:.5px}
+.footer-bottom{
+  max-width:1320px;margin:22px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.14);
+  font-size:12px;color:#8fb3a8;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+
+/* 响应式 */
+@media (max-width:1024px){
+  .layout{grid-template-columns:1fr;gap:20px}
+  .channel-rail{position:static;order:2}
+  .channel-rail ul{flex-direction:row;flex-wrap:wrap;gap:6px}
+  .channel-rail a{padding:6px 11px;background:var(--panel-2)}
+  .rail-note{display:none}
+  .footer-inner{grid-template-columns:1fr 1fr}
+}
+@media (max-width:740px){
+  .header-inner{padding:10px 14px;gap:10px}
+  .main-nav{order:3;flex-basis:100%;overflow-x:auto;padding-bottom:2px}
+  .main-nav a{white-space:nowrap}
+  .header-search input{width:110px}
+  .layout{padding:16px 14px 36px}
+  .hero{padding:24px 20px 20px}
+  .hero-stats{gap:18px}
+  .board{padding:18px 16px}
+  .card-grid{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+  .news-item{grid-template-columns:1fr}
+  .news-item img{width:100%;height:150px}
+  .update-list li{grid-template-columns:1fr;gap:2px}
+  .footer-inner{grid-template-columns:1fr}
+  .notice-bar{font-size:12px;padding:6px 12px;gap:8px}
+}
+@media (max-width:400px){
+  .hero h1{letter-spacing:1px}
+  .hero-actions .btn{padding:8px 14px;font-size:13px}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-top">
+  <div class="notice-bar">
+    <span><strong>11 月 8 日更新</strong>《雾港档案》第 24 话上线</span>
+    <span class="dot"></span>
+    <span>本周新增 12 部连载条目</span>
+    <span class="dot"></span>
+    <span>《山海食肆》完结篇已放出</span>
+  </div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/#top" aria-label="漫蛙首页">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#135c4a"/>
+          <circle cx="24" cy="24" r="7" fill="#f2c14e"/>
+          <circle cx="42" cy="24" r="7" fill="#f2c14e"/>
+          <path d="M18 42c4 8 24 8 28 0" stroke="#f2c14e" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">漫蛙</span>
+      </a>
+      <nav class="main-nav" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#picks">精选条目</a>
+        <a href="/#updates">更新动态</a>
+        <a href="/#cats">类型分类</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">追更路径</a>
+        <a href="/#faq">常见问答</a>
+        <a href="/#rank">口碑榜</a>
+      </nav>
+      <div class="header-search">
+        <input type="search" id="siteSearch" placeholder="搜索条目名或类型" aria-label="搜索页面内条目">
+        <button type="button" id="searchBtn">查找</button>
+      </div>
+    </div>
+    <div class="search-feedback" id="searchFeedback" role="status" aria-live="polite"></div>
+  </header>
+</div>
+
+<main id="top">
+  <div class="layout">
+    <!-- 左侧频道栏 -->
+    <aside class="channel-rail" aria-label="频道索引">
+      <h2>频道</h2>
+      <ul>
+        <li><a href="/#overview">领域概览<span class="cnt">01</span></a></li>
+        <li><a href="/#picks">精选条目<span class="cnt">08</span></a></li>
+        <li><a href="/#updates">更新动态<span class="cnt">10</span></a></li>
+        <li><a href="/#cats">类型分类<span class="cnt">08</span></a></li>
+        <li><a href="/#deep">深度解析<span class="cnt">01</span></a></li>
+        <li><a href="/#guide">追更路径<span class="cnt">05</span></a></li>
+        <li><a href="/#faq">常见问答<span class="cnt">06</span></a></li>
+        <li><a href="/#comments">读者评论<span class="cnt">14</span></a></li>
+        <li><a href="/#news">相关资讯<span class="cnt">06</span></a></li>
+        <li><a href="/#related">延伸方向<span class="cnt">08</span></a></li>
+        <li><a href="/#rank">口碑榜<span class="cnt">10</span></a></li>
+        <li><a href="/#timeline">连载时间线<span class="cnt">05</span></a></li>
+      </ul>
+      <div class="rail-note">
+        更新按平台连载节奏整理，同一条目先后顺序不固定，以具体话数为准。
+      </div>
+    </aside>
+
+    <div class="content-col">
+      <!-- 首屏 -->
+      <section class="hero" aria-labelledby="hero-title">
+        <span class="hero-kicker">连载 / 完结 / 条漫 · 条目聚合</span>
+        <h1 id="hero-title">漫蛙</h1>
+        <p class="hero-lead">
+          把连载中的都市悬疑、仙侠群像、日常治愈与完结神作收进同一处：每一条目给出具体话数进度、类型标签、看点说明和口碑评分，方便你在追更、补番和横向比较之间快速做出选择。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/#picks">看精选条目</a>
+          <a class="btn btn-ghost" href="/#updates">查今日更新</a>
+        </div>
+        <div class="hero-stats">
+          <div><span>收录连载</span><strong>186 部</strong></div>
+          <div><span>本周完结</span><strong>4 部</strong></div>
+          <div><span>今日更新话数</span><strong>37 话</strong></div>
+          <div><span>口碑 9 分以上</span><strong>23 部</strong></div>
+        </div>
+      </section>
+
+      <!-- 1 领域概览 -->
+      <section class="board overview" id="overview" aria-labelledby="overview-h">
+        <div class="board-head"><h2 id="overview-h">漫画连载与追更的领域概览</h2></div>
+        <p class="board-sub">从题材分布、更新节奏到完结节点，先把这一领域的整体面貌看清楚。</p>
+        <p>
+          漫画连载大致分成三条主线：<strong>周更条漫</strong>、<strong>月更页漫</strong>和<strong>季播式短篇集</strong>。周更条漫单话篇幅短、节奏快，常见于都市悬疑、校园恋爱和爽文改编；月更页漫单话信息量大，画面分镜更讲究，多见于仙侠、奇幻与硬核科幻；季播式短篇集则以 8 到 12 话为一个单元收束，适合不想长期追更的读者。
+        </p>
+        <p>
+          从题材看，当前较集中的方向有：<strong>都市悬疑</strong>（以案件单元推进，如《雾港档案》）、<strong>仙侠群像</strong>（多主角视角，如《剑门十二楼》）、<strong>日常治愈</strong>（低冲突、强氛围，如《山海食肆》）、<strong>校园成长</strong>（如《夏日补课班》）以及<strong>异世界经营</strong>（如《我在异界开当铺》）。不同方向的更新频率和单话时长差别明显，直接影响追更成本。
+        </p>
+        <p>
+          判断一部漫画值不值得追，通常看三个具体指标：<strong>单话信息密度</strong>（是否每话都有推进）、<strong>更新稳定性</strong>（近三个月是否断更超过两次）、<strong>完结预期</strong>（作者是否公布过大致话数区间）。这三项比单纯看评分更能反映实际阅读体验。下面各板块会围绕具体条目展开，把类型差异和选择依据讲清楚。
+        </p>
+      </section>
+
+      <!-- 2 精选内容推荐 -->
+      <section class="board" id="picks" aria-labelledby="picks-h">
+        <div class="board-head">
+          <h2 id="picks-h">精选条目推荐</h2>
+          <a href="/#rank">查看口碑榜 →</a>
+        </div>
+        <p class="board-sub">八部方向各异的具体条目，覆盖悬疑、仙侠、治愈、校园与经营流。</p>
+        <div class="card-grid">
+          <article class="card" data-search="雾港档案 都市悬疑 刑侦 单元剧">
+            <img class="card-cover" src="https://picsum.photos/seed/manwa-wugang01/400/300" width="400" height="300" loading="lazy" alt="雾港档案都市悬疑漫画封面">
+            <div class="card-body">
+              <span class="card-type">都市悬疑</span>
+              <h3>雾港档案</h3>
+              <div class="tags"><span class="tag">刑侦单元</span><span class="tag">双男主</span><span class="tag">周更</span></div>
+              <p>以港口城市连环失踪案为引，每 4 话收束一个案件，主线暗线埋在旧码头拆迁记录里，适合喜欢推理链完整的读者。</p>
+              <div class="card-meta"><span class="hot">热度 9.4</span><span>更新至 24 话</span></div>
+            </div>
+          </article>
+          <article class="card" data-search="剑门十二楼 仙侠 群像 门派">
+            <img class="card-cover" src="https://picsum.photos/seed/manwa-jianmen02/400/300" width="400" height="300" loading="lazy" alt="剑门十二楼仙侠群像漫画封面">
+            <div class="card-body">
+              <span class="card-type">仙侠群像</span>
+              <h3>剑门十二楼</h3>
+              <div class="tags"><span class="tag">多主角</span><span class="tag">门派斗争</span><span class="tag">月更</span></div>
+              <p>十二座剑楼对应十二位守楼人，每卷聚焦一人身世，战斗分镜扎实，适合能接受慢热铺垫的读者。</p>
+              <div class="card-meta"><span class="hot">热度 9.1</span><span>更新至 61 话</span></div>
+            </div>
+          </article>
+          <article class="card" data-search="山海食肆 日常治愈 美食 完结">
+            <img class="card-cover" src="https://picsum.photos/seed/manwa-shanhai03/400/300" width="400" height="300" loading="lazy" alt="山海食肆日常治愈美食漫画封面">
+            <div class="card-body">
+              <span class="card-type">日常治愈</span>
+              <h3>山海食肆</h3>
+              <div class="tags"><span class="tag">美食</span><span class="tag">单元故事</span><span class="tag">已完结</span></div>
+              <p>一间只在雨夜开门的小馆，每位客人带一道菜和一个心结，全 48 话完结，适合一次补完。</p>
+              <div class="card-meta"><span class="hot">评分 9.6</span><span>全 48 话</span></div>
+            </div>
+          </article>
+          <article class="card" data-search="夏日补课班 校园 成长 群像">
+            <img class="card-cover" src="https://picsum.photos/seed/manwa-xiari04/400/300" width="400" height="300" loading="lazy" alt="夏日补课班校园成长漫画封面">
+            <div class="card-body">
+              <span class="card-type">校园成长</span>
+              <h3>夏日补课班</h3>
+              <div class="tags"><span class="tag">高三</span><span class="tag">群像</span><span class="tag">双周更</span></div>
+              <p>八个成绩垫底的学生被塞进同一间补课教室，叙事按月考节点推进，真实还原志愿填报前的犹豫。</p>
+              <div class="card-meta"><span class="hot">热度 8.8</span><span>更新至 33 话</span></div>
+            </div>
+          </article>
+          <article class="card" data-search="我在异界开当铺 异世界 经营 轻喜剧">
+            <img class="card-cover" src="https://picsum.photos/seed/manwa-dangpu05/400/300" width="400" height="300" loading="lazy" alt="我在异界开当铺异世界经营漫画封面">
+            <div class="card-body">
+              <span class="card-type">异世界经营</span>
+              <h3>我在异界开当铺</h3>
+              <div class="tags"><span class="tag">经营流</span><span class="tag">轻喜剧</span><span class="tag">周更</span></div>
+              <p>主角用现代鉴定知识收当异世界道具，每话一件奇物，交易规则写得细，适合喜欢系统设定的读者。</p>
+              <div class="card-meta"><span class="hot">热度 8.9</span><span>更新至 42 话</span></div>
+            </div>
+          </article>
+          <article class="card" data-search="深空信标 科幻 硬核 太空">
+            <img class="card-cover" src="https://picsum.photos/seed/manwa-shenkong06/400/300" width="400" height="300" loading="lazy" alt="深空信标硬核科幻漫画封面">
+            <div class="card-body">
+              <span class="card-type">硬核科幻</span>
+              <h3>深空信标</h3>
+              <div class="tags"><span class="tag">太空站</span><span class="tag">悬疑</span><span class="tag">月更</span></div>
+              <p>一座失联七年的空间站突然回传信号，调查队登站后发现日志被人为改写，设定考据扎实。</p>
+              <div class="card-meta"><span class="hot">评分 9.2</span><span>更新至 19 话</span></div>
+            </div>
+          </article>
+          <article class="card" data-search="纸鸢与刀 古风 武侠 短篇">
+            <img class="card-cover" src="https://picsum.photos/seed/manwa-zhiyuan07/400/300" width="400" height="300" loading="lazy" alt="纸鸢与刀古风武侠漫画封面">
+            <div class="card-body">
+              <span class="card-type">古风武侠</span>
+              <h3>纸鸢与刀</h3>
+              <div class="tags"><span class="tag">江湖</span><span class="tag">女性主角</span><span class="tag">短篇集</span></div>
+              <p>女刀客替人送信十年，每封信牵出一段旧怨，单话独立成篇，适合碎片时间阅读。</p>
+              <div class="card-meta"><span class="hot">热度 8.6</span><span>更新至 15 话</span></div>
+            </div>
+          </article>
+          <article class="card" data-search="第七号温室 悬疑 奇幻 双线">
+            <img class="card-cover" src="https://picsum.photos/seed/manwa-wenshi08/400/300" width="400" height="300" loading="lazy" alt="第七号温室悬疑奇幻漫画封面">
+            <div class="card-body">
+              <span class="card-type">悬疑奇幻</span>
+              <h3>第七号温室</h3>
+              <div class="tags"><span class="tag">双线叙事</span><span class="tag">植物拟态</span><span class="tag">周更</span></div>
+              <p>植物园里七座温室各自保存一段记忆，主角每进入一座就会丢失一件现实中的东西，设定新奇。</p>
+              <div class="card-meta"><span class="hot">热度 9.0</span><span>更新至 27 话</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3 最新更新 -->
+      <section class="board" id="updates" aria-labelledby="updates-h">
+        <div class="board-head"><h2 id="updates-h">最新更新与连载动态</h2></div>
+        <p class="board-sub">2026 年 11 月 8 日前后的话数变化，按平台放出时间排列。</p>
+        <ul class="update-list">
+          <li><span class="u-time">今天 09:30</span><span><a class="u-name" href="/#picks">雾港档案</a><span class="u-desc"> 第 24 话「潮汐表」上线，失踪案线索指向旧码头值班表。</span></span><span class="u-badge">周更</span></li>
+          <li><span class="u-time">今天 08:10</span><span><a class="u-name" href="/#picks">我在异界开当铺</a><span class="u-desc"> 第 42 话收当一枚会说话的怀表，交易规则首次出现漏洞。</span></span><span class="u-badge">周更</span></li>
+          <li><span class="u-time">昨天 21:10</span><span><a class="u-name" href="/#picks">第七号温室</a><span class="u-desc"> 第 27 话「蕨类回音」放出，第二座温室记忆线收束。</span></span><span class="u-badge">周更</span></li>
+          <li><span class="u-time">昨天 19:40</span><span><a class="u-name" href="/#picks">山海食肆</a><span class="u-desc"> 完结篇第 48 话上线，雨夜小馆迎来最后一位客人。</span></span><span class="u-badge">完结</span></li>
+          <li><span class="u-time">11 月 6 日</span><span><a class="u-name" href="/#picks">深空信标</a><span class="u-desc"> 第 19 话更新，空间站日志时间戳出现三处矛盾。</span></span><span class="u-badge">月更</span></li>
+          <li><span class="u-time">11 月 5 日</span><span><a class="u-name" href="/#picks">夏日补课班</a><span class="u-desc"> 第 33 话「模拟志愿」上线，八人首次出现分歧。</span></span><span class="u-badge">双周更</span></li>
+          <li><span class="u-time">11 月 4 日</span><span><a class="u-name" href="/#picks">纸鸢与刀</a><span class="u-desc"> 第 15 话「渡口信」更新，单话独立成篇。</span></span><span class="u-badge">短篇</span></li>
+          <li><span class="u-time">11 月 2 日</span><span><a class="u-name" href="/#timeline">剑门十二楼</a><span class="u-desc"> 第 61 话放出，第十一楼守楼人身世揭晓。</span></span><span class="u-badge">月更</span></li>
+          <li><span class="u-time">10 月 30 日</span><span><a class="u-name" href="/#timeline">折光旅店</a><span class="u-desc"> 新连载开更，首日放出 1—3 话。</span></span><span class="u-badge">新作</span></li>
+          <li><span class="u-time">10 月 28 日</span><span><a class="u-name" href="/#timeline">北岸旧书店</a><span class="u-desc"> 第 12 话更新，第一单元完结。</span></span><span class="u-badge">季播</span></li>
+        </ul>
+      </section>
+
+      <!-- 4 分类入口 -->
+      <section class="board" id="cats" aria-labelledby="cats-h">
+        <div class="board-head"><h2 id="cats-h">按类型与阅读偏好分类</h2></div>
+        <p class="board-sub">八个常用类别词，点进去看该方向下的具体条目与更新情况。</p>
+        <div class="cat-grid">
+          <a class="cat-item" href="/#picks"><h3>都市悬疑</h3><p>刑侦单元、双线追凶，案件收束节奏快。</p></a>
+          <a class="cat-item" href="/#picks"><h3>仙侠群像</h3><p>门派斗争、多主角轮转，适合慢热读者。</p></a>
+          <a class="cat-item" href="/#picks"><h3>日常治愈</h3><p>低冲突单元故事，美食与街巷氛围为主。</p></a>
+          <a class="cat-item" href="/#picks"><h3>校园成长</h3><p>考试节点推进，群像与志愿选择题材。</p></a>
+          <a class="cat-item" href="/#picks"><h3>异世界经营</h3><p>系统设定与交易规则，轻喜剧调味。</p></a>
+          <a class="cat-item" href="/#picks"><h3>硬核科幻</h3><p>太空站、信标与考据型设定。</p></a>
+          <a class="cat-item" href="/#picks"><h3>古风武侠</h3><p>江湖短篇、女性主角与信件母题。</p></a>
+          <a class="cat-item" href="/#picks"><h3>悬疑奇幻</h3><p>双线叙事与拟态设定，记忆代价题材。</p></a>
+        </div>
+      </section>
+
+      <!-- 5 深度解析 -->
+      <section class="board deep" id="deep" aria-labelledby="deep-h">
+        <div class="board-head"><h2 id="deep-h">深度解析：类型差异与追更判断维度</h2></div>
+        <p class="board-sub">以具体条目为例，拆解不同方向在叙事结构、更新节奏和阅读成本上的差别。</p>
+
+        <h3>周更条漫与月更页漫的节奏差异</h3>
+        <p>
+          周更条漫的核心是「每话一个小钩子」。以《雾港档案》为例，单话约 40 到 60 格，通常在一个案件的关键证物出现时收尾，下一话开头立刻接上。这种结构的好处是追更反馈快，坏处是单话信息量有限，如果一次只看一话，容易觉得推进缓慢。月更页漫则相反，《剑门十二楼》单话可达 80 格以上，一卷之内会完成一名守楼人的完整弧线，适合一次性读完整卷。
+        </p>
+        <h3>单元剧与连续剧的追更成本</h3>
+        <p>
+          单元剧条目（《山海食肆》《纸鸢与刀》）每话或每几话独立成篇，中途插入不会看不懂，追更成本低；连续剧条目（《深空信标》《第七号温室》）依赖前后伏笔，断更两周后需要回看前一话才能接上。选择时可以先问自己：能保证每周固定时间阅读吗？如果不能，单元剧或已完结条目更合适。
+        </p>
+        <div class="callout">
+          判断更新稳定性时，重点看近三个月是否出现连续两次以上超过原定周期的延迟。《深空信标》月更但两次延期均提前公告，属于可预期；而部分周更条目未公告即停更，追更风险更高。
+        </div>
+        <h3>完结预期与投入产出</h3>
+        <ul>
+          <li><strong>已公布总话数</strong>：如《山海食肆》明确全 48 话，投入时间可预估。</li>
+          <li><strong>卷末收束型</strong>：如《剑门十二楼》每卷独立，可在卷末暂停。</li>
+          <li><strong>开放连载型</strong>：如《我在异界开当铺》未公布总话数，适合能接受长期追更的读者。</li>
+        </ul>
+        <h3>类型标签与实际内容的偏差</h3>
+        <p>
+          标签只能作初筛。《夏日补课班》被归入校园成长，但实际大量篇幅在写家庭沟通与志愿填报的现实压力；《第七号温室》标为悬疑奇幻，前 10 话更接近氛围向的慢节奏叙事。建议在决定追更前先读前三话，确认叙事节奏与标签描述是否一致。
+        </p>
+        <h3>横向比较：三部悬疑向条目的差异</h3>
+        <p>
+          《雾港档案》偏刑侦程序，线索靠物证推进；《第七号温室》偏设定悬疑，靠规则代价制造张力；《深空信标》偏硬科幻悬疑，靠日志矛盾推动调查。三者都带悬疑标签，但阅读体验分别接近「破案」「解谜」和「考据」，按自己更享受哪一种来选择，比单看评分更有效。
+        </p>
+      </section>
+
+      <!-- 6 体验指南 -->
+      <section class="board" id="guide" aria-labelledby="guide-h">
+        <div class="board-head"><h2 id="guide-h">追更与补番的阅读顺序建议</h2></div>
+        <p class="board-sub">从第一次接触某一类型到稳定追更，可以按下面五步走。</p>
+        <ol class="steps">
+          <li>
+            <div><h3>先确定自己能接受的更新周期</h3><p>每周固定时间阅读的，选周更条漫；只能周末集中看的，选月更页漫或已完结条目。《山海食肆》全 48 话适合两周内补完。</p></div>
+          </li>
+          <li>
+            <div><h3>用前三话判断叙事节奏</h3><p>前三话决定一部作品是否适合你。《雾港档案》前三话已完成一个案件雏形，能快速判断是否喜欢其推理密度。</p></div>
+          </li>
+          <li>
+            <div><h3>确认更新稳定性再决定追更</h3><p>查看近三个月更新记录，优先选择有延期公告习惯的条目，如《深空信标》的月更公告较规律。</p></div>
+          </li>
+          <li>
+            <div><h3>同类条目横向比较一次</h3><p>同类型挑两到三部各读三话，比较信息密度与画风。《剑门十二楼》与《纸鸢与刀》同属古风，但前者群像、后者单话独立。</p></div>
+          </li>
+          <li>
+            <div><h3>按卷或单元节点安排补番</h3><p>连载中的条目在卷末或单元收束处暂停，避免卡在高潮点。《第七号温室》每三话一个记忆单元，适合按单元补。</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 对照面板 -->
+      <section class="board" aria-labelledby="compare-h">
+        <div class="board-head"><h2 id="compare-h">周更条漫与月更页漫对照</h2></div>
+        <p class="board-sub">两个常见连载形态在单话篇幅、阅读节奏和追更成本上的具体差别。</p>
+        <div class="compare">
+          <div class="c-head">周更条漫</div>
+          <div class="c-head">月更页漫</div>
+          <div class="c-cell">单话 40—60 格，竖屏滑动阅读</div>
+          <div class="c-cell">单话 80 格以上，横版分镜为主</div>
+          <div class="c-cell">每话一个小钩子，适合碎片时间</div>
+          <div class="c-cell">整卷一个完整弧线，适合集中阅读</div>
+          <div class="c-cell">代表条目：《雾港档案》《我在异界开当铺》</div>
+          <div class="c-cell">代表条目：《剑门十二楼》《深空信标》</div>
+          <div class="c-cell">断更两周后回看成本较低</div>
+          <div class="c-cell">断更后需回看前一话衔接伏笔</div>
+        </div>
+      </section>
+
+      <!-- 7 FAQ -->
+      <section class="board faq" id="faq" aria-labelledby="faq-h">
+        <div class="board-head"><h2 id="faq-h">常见问答</h2></div>
+        <p class="board-sub">围绕更新周期、类型区别与入门选择的六个具体问题。</p>
+        <details>
+          <summary>周更条漫一般多久更新一次，延迟常见吗？</summary>
+          <div class="f-body">多数周更条漫按固定星期更新，如《雾港档案》每周五上午放出。延迟通常发生在节假日或作者休刊期，稳定的条目会提前一话公告。若连续两次未公告延期，追更风险会明显上升。</div>
+        </details>
+        <details>
+          <summary>《雾港档案》和《第七号温室》都是悬疑，区别在哪？</summary>
+          <div class="f-body">前者偏刑侦程序，靠物证和值班表推进案件；后者偏设定悬疑，靠「进入温室就丢失一件现实之物」的规则制造张力。喜欢破案流程的选前者，喜欢规则解谜的选后者。</div>
+        </details>
+        <details>
+          <summary>第一次接触仙侠群像，从哪部开始看比较好？</summary>
+          <div class="f-body">可以先看《剑门十二楼》第一卷，第一卷围绕单一守楼人展开，不依赖后文设定。若觉得节奏偏慢，可改看单话独立的《纸鸢与刀》，先适应古风叙事再回到群像。</div>
+        </details>
+        <details>
+          <summary>已完结的条目不想到处找，怎么判断值不值得补？</summary>
+          <div class="f-body">看总话数与单元结构。《山海食肆》全 48 话、每话一个客人故事，补完大约需要 6 到 8 小时。若评分在 9 分以上且单元结构清晰，通常补完体验较完整，不容易烂尾。</div>
+        </details>
+        <details>
+          <summary>月更页漫断更后，怎么快速接上剧情？</summary>
+          <div class="f-body">先回看前一话最后 10 格，再读新话开头两页。月更条目常在卷首做简短前情回顾，如《深空信标》每话首页有一行日志摘要，读摘要即可衔接主要线索。</div>
+        </details>
+        <details>
+          <summary>经营流和异世界题材的评判标准通常是什么？</summary>
+          <div class="f-body">主要看三点：交易或经营规则是否自洽、每话是否出现新道具或新客户、主角决策是否有代价。《我在异界开当铺》每话一件奇物，规则写得细，属于规则自洽度较高的一类。</div>
+        </details>
+      </section>
+
+      <!-- 8 用户评论 -->
+      <section class="board" id="comments" aria-labelledby="comments-h">
+        <div class="board-head"><h2 id="comments-h">读者评论</h2></div>
+        <p class="board-sub">来自不同阅读偏好的十四条具体反馈，含中性评价。</p>
+        <div class="comments">
+          <div class="comment"><div class="c-top"><span class="c-name">雨夜看海</span><span class="c-date">11 月 8 日</span></div><p>《雾港档案》第 24 话的值班表伏笔埋得不错，但前 10 话节奏确实偏慢。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">青柠不酸</span><span class="c-date">11 月 8 日</span></div><p>《山海食肆》完结了有点舍不得，最后一道菜收得挺稳，没有硬凑。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">半页书签</span><span class="c-date">11 月 7 日</span></div><p>《剑门十二楼》第十一楼那话分镜很强，就是月更等得有点久。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">纸飞机航线</span><span class="c-date">11 月 7 日</span></div><p>《夏日补课班》写志愿填报那段太真实了，比一般校园漫沉。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">夜航星图</span><span class="c-date">11 月 6 日</span></div><p>《深空信标》的设定考据做得细，但画面偏冷，看着有点累。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">南巷旧灯</span><span class="c-date">11 月 6 日</span></div><p>《我在异界开当铺》规则写得清楚，就是每话结尾有点套路化。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">薄荷汽水</span><span class="c-date">11 月 5 日</span></div><p>《纸鸢与刀》单话独立，通勤时看一话刚好，适合碎片时间。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">七号温室客</span><span class="c-date">11 月 5 日</span></div><p>《第七号温室》前 10 话有点闷，撑过去之后设定展开很带感。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">折光旅人</span><span class="c-date">11 月 4 日</span></div><p>《折光旅店》新开的三话质量一般，先观望一阵再决定追不追。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">北岸书店</span><span class="c-date">11 月 3 日</span></div><p>《北岸旧书店》第一单元收得干净，季播结构挺适合我。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">风起十二楼</span><span class="c-date">11 月 2 日</span></div><p>《剑门十二楼》多主角轮转有点散，但每个守楼人写得好。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">潮汐表读者</span><span class="c-date">11 月 1 日</span></div><p>《雾港档案》双男主互动自然，案件收束也算利落。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">苔藓与小刀</span><span class="c-date">10 月 30 日</span></div><p>《纸鸢与刀》第 15 话渡口那篇最好，其他几话质量有点起伏。</p></div>
+          <div class="comment"><div class="c-top"><span class="c-name">月更等更人</span><span class="c-date">10 月 28 日</span></div><p>月更条目看着爽但等得久，《深空信标》每次都要重新翻前一话。</p></div>
+        </div>
+      </section>
+
+      <!-- 9 相关资讯 -->
+      <section class="board" id="news" aria-labelledby="news-h">
+        <div class="board-head"><h2 id="news-h">相关资讯</h2></div>
+        <p class="board-sub">六条与连载、完结和类型变化有关的具体动态。</p>
+        <div class="news-list">
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/manwa-news-shanghai01/600/400" width="600" height="400" loading="lazy" alt="山海食肆完结篇上线资讯配图">
+            <div>
+              <h3>《山海食肆》完结篇上线，全 48 话收束</h3>
+              <time>2026-11-07</time>
+              <p>雨夜小馆主线在最后一话收束，作者在卷末附页说明不再出续篇，单元故事模式至此完整结束。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/manwa-news-wugang02/600/400" width="600" height="400" loading="lazy" alt="雾港档案第二案收束资讯配图">
+            <div>
+              <h3>《雾港档案》第二案收束，第三案线索首次公开</h3>
+              <time>2026-11-06</time>
+              <p>第 23 话完成港口失踪案闭环，第 24 话值班表细节引出下一案，官方同步更新案件时间线。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/manwa-news-jianmen03/600/400" width="600" height="400" loading="lazy" alt="剑门十二楼第十一楼更新资讯配图">
+            <div>
+              <h3>《剑门十二楼》第十一楼守楼人身世揭晓</h3>
+              <time>2026-11-02</time>
+              <p>第 61 话放出后，多主角线中最后一位守楼人的背景补齐，作者表示下一卷将进入最终章。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/manwa-news-zheguang04/600/400" width="600" height="400" loading="lazy" alt="折光旅店新连载开更资讯配图">
+            <div>
+              <h3>新连载《折光旅店》开更，首日放出三话</h3>
+              <time>2026-10-30</time>
+              <p>以旅店房间折射记忆为设定，首日放出 1 至 3 话，平台将其归入悬疑奇幻新作推荐位。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/manwa-news-beian05/600/400" width="600" height="400" loading="lazy" alt="北岸旧书店第一单元完结资讯配图">
+            <div>
+              <h3>《北岸旧书店》第一单元完结，季播结构获讨论</h3>
+              <time>2026-10-28</time>
+              <p>第 12 话收回书店旧客线索，读者讨论集中在季播式短篇是否更适合碎片化追更。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/manwa-news-shenkong06/600/400" width="600" height="400" loading="lazy" alt="深空信标月更延期公告资讯配图">
+            <div>
+              <h3>《深空信标》第 20 话延期一周，作者发布说明</h3>
+              <time>2026-10-26</time>
+              <p>因分镜调整，第 20 话推迟至 11 月中旬，作者在公告中说明不影响后续卷末收束计划。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 10 相关推荐 -->
+      <section class="board" id="related" aria-labelledby="related-h">
+        <div class="board-head"><h2 id="related-h">延伸方向与相关条目</h2></div>
+        <p class="board-sub">从已看条目延伸到相近类型或同一作者的其他方向。</p>
+        <div class="rel-tags">
+          <a href="/#picks">刑侦单元剧推荐</a>
+          <a href="/#picks">多主角仙侠群像</a>
+          <a href="/#picks">低冲突美食治愈</a>
+          <a href="/#picks">校园志愿填报题材</a>
+          <a href="/#picks">系统规则经营流</a>
+          <a href="/#picks">太空站悬疑考据</a>
+          <a href="/#picks">单话独立古风短篇</a>
+          <a href="/#picks">记忆代价双线叙事</a>
+        </div>
+      </section>
+
+      <!-- 11 口碑榜 -->
+      <section class="board" id="rank" aria-labelledby="rank-h">
+        <div class="board-head"><h2 id="rank-h">本月口碑榜</h2></div>
+        <p class="board-sub">按读者评分与更新稳定性综合排列的十部条目，数据截至 11 月 8 日。</p>
+        <ol class="rank-list">
+          <li><span class="r-name">山海食肆</span><span class="r-score">9.6 · 完结</span></li>
+          <li><span class="r-name">雾港档案</span><span class="r-score">9.4 · 周更</span></li>
+          <li><span class="r-name">深空信标</span><span class="r-score">9.2 · 月更</span></li>
+          <li><span class="r-name">剑门十二楼</span><span class="r-score">9.1 · 月更</span></li>
+          <li><span class="r-name">第七号温室</span><span class="r-score">9.0 · 周更</span></li>
+          <li><span class="r-name">我在异界开当铺</span><span class="r-score">8.9 · 周更</span></li>
+          <li><span class="r-name">夏日补课班</span><span class="r-score">8.8 · 双周更</span></li>
+          <li><span class="r-name">纸鸢与刀</span><span class="r-score">8.6 · 短篇</span></li>
+          <li><span class="r-name">北岸旧书店</span><span class="r-score">8.4 · 季播</span></li>
+          <li><span class="r-name">折光旅店</span><span class="r-score">8.1 · 周更</span></li>
+        </ol>
+      </section>
+
+      <!-- 12 时间线 -->
+      <section class="board" id="timeline" aria-labelledby="timeline-h">
+        <div class="board-head"><h2 id="timeline-h">近期连载时间线</h2></div>
+        <p class="board-sub">十月下旬至十一月上旬的关键更新与完结节点。</p>
+        <ul class="timeline">
+          <li><time>2026-11-07</time><strong>《山海食肆》完结</strong>：全 48 话收束，单元故事完整结束。</li>
+          <li><time>2026-11-06</time><strong>《深空信标》延期公告</strong>：第 20 话推迟至 11 月中旬。</li>
+          <li><time>2026-11-02</time><strong>《剑门十二楼》第 61 话</strong>：第十一楼守楼人身世揭晓。</li>
+          <li><time>2026-10-30</time><strong>《折光旅店》开更</strong>：首日放出 1 至 3 话。</li>
+          <li><time>2026-10-28</time><strong>《北岸旧书店》第一单元完结</strong>：第 12 话收回旧客线索。</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#1d7f66"/>
+          <circle cx="24" cy="24" r="7" fill="#f2c14e"/>
+          <circle cx="42" cy="24" r="7" fill="#f2c14e"/>
+          <path d="M18 42c4 8 24 8 28 0" stroke="#f2c14e" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span>漫蛙</span>
+      </div>
+      <p>聚合连载漫画、完结神作与条漫新番的条目信息，围绕具体话数、类型标签与更新节奏整理，帮助读者在追更与补番之间做出选择。</p>
+    </div>
+    <div>
+      <h3>栏目入口</h3>
+      <ul>
+        <li><a href="/#overview">领域概览</a></li>
+        <li><a href="/#picks">精选条目</a></li>
+        <li><a href="/#updates">更新动态</a></li>
+        <li><a href="/#cats">类型分类</a></li>
+        <li><a href="/#deep">深度解析</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>延伸阅读</h3>
+      <ul>
+        <li><a href="/#guide">追更路径</a></li>
+        <li><a href="/#faq">常见问答</a></li>
+        <li><a href="/#comments">读者评论</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+        <li><a href="/#rank">本月口碑榜</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>部分内容为示例数据，仅用于展示页面结构</span>
+    <span>漫画条目聚合 · 内容整理 © 2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var input=document.getElementById('siteSearch');
+  var btn=document.getElementById('searchBtn');
+  var feedback=document.getElementById('searchFeedback');
+  var cards=Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var boards=Array.prototype.slice.call(document.querySelectorAll('.board'));
+
+  function runSearch(){
+    var q=(input.value||'').trim().toLowerCase();
+    if(!q){
+      cards.forEach(function(c){c.style.display='';});
+      boards.forEach(function(b){b.style.display='';});
+      feedback.classList.remove('show');
+      feedback.textContent='';
+      return;
+    }
+    var hit=0;
+    cards.forEach(function(c){
+      var text=(c.getAttribute('data-search')||'')+' '+c.innerText.toLowerCase();
+      var match=text.indexOf(q)>-1;
+      c.style.display=match?'':'none';
+      if(match)hit++;
+    });
+    boards.forEach(function(b){b.style.display='';});
+    feedback.classList.add('show');
+    if(hit===0){
+      feedback.textContent='没有找到与「'+input.value.trim()+'」匹配的条目，试试「悬疑」「仙侠」或具体条目名。';
+    }else{
+      feedback.textContent='精选条目中匹配到 '+hit+' 部，其余板块保持可见。';
+    }
+  }
+  btn.addEventListener('click',runSearch);
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();runSearch();}});
+  input.addEventListener('input',function(){if(!input.value.trim()){runSearch();}});
+})();
+</script>
+</body>
+                                                                                                                                                               </html>
